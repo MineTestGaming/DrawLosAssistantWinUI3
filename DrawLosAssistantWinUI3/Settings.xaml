@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="DrawLosAssistantWinUI3.Settings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DrawLosAssistantWinUI3"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <RelativePanel>
+        <TextBlock Text="设置" FontSize="48" Margin="20" Name="SettingsTitle"/>
+        <StackPanel RelativePanel.Below="SettingsTitle" Orientation="Vertical" Margin="20,0,20,0">
+            <TextBlock Text="手动添加名单" FontSize="36"/>
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="Input" PlaceholderText="名字" Margin="0,0,10,0" Grid.Column="0"/>
+                <Button x:Name="Add" Content="添加" Margin="10,0,0,0" Grid.Column="1" Click="Add_Click"/>
+            </Grid>
+            <TextBlock Text="从txt导入" FontSize="36"/>
+            <Button x:Name="Import" Content="导入" />
+            <TextBlock Text="重置此应用" FontSize="36"/>
+            <Button x:Name="Clear" Content="重置" Click="Clear_Click"/>
+        </StackPanel>
+
+    </RelativePanel>
+
+</Page>

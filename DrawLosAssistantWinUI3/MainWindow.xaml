@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="DrawLosAssistantWinUI3.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DrawLosAssistantWinUI3"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Activated="Window_Activated">
+
+    <NavigationView Name="Nav" ItemInvoked="Nav_ItemInvoked" SelectedItem="Home">
+        <NavigationView.MenuItems>
+            <NavigationViewItem Icon="Home" Content="主页" Tag="Home"/>
+            <NavigationViewItem Icon="SwitchApps" Content="Debug" Tag="Debug"/>
+        </NavigationView.MenuItems>
+        <NavigationView.Content>
+            <Frame x:Name="MainFrame"/>
+        </NavigationView.Content>
+
+    </NavigationView>
+</Window>
