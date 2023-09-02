@@ -1,4 +1,5 @@
 using DrawLosAssistantWinUI3.Models;
+using DrawLosAssistantWinUI3.ResultPage;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -54,6 +55,7 @@ namespace DrawLosAssistantWinUI3
             }
 
         }
+
 
         private void Window_Activated(object sender, WindowActivatedEventArgs args)
         {

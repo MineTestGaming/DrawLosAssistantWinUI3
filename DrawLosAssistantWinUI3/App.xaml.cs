@@ -33,6 +33,8 @@ namespace DrawLosAssistantWinUI3
         public App()
         {
             this.InitializeComponent();
+            Unosquare.FFME.Library.FFmpegDirectory = @"C:\Users\sutao\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-6.0-full_build\bin";
+
         }
 
         /// <summary>

@@ -14,6 +14,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using DrawLosAssistantWinUI3.Models;
 
+
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -31,30 +32,9 @@ namespace DrawLosAssistantWinUI3
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            NameList.Load();
 
-            Random random = new Random();
-            int MaxNum = NameList.Count - 1;
-            int resultNum = random.Next(0, MaxNum);
-            int levelNum = random.Next(0, 1000);
-
-
-            if (levelNum > 900)
-            {
-                Level.Text = "Super Rare";
-
-            }
-            else if (levelNum > 850)
-            {
-                Level.Text = "Rare";
-            }
-            else
-            {
-                Level.Text = "Common";
-            }
-
-
-            Result.Text = NameList.GetName(resultNum);
+            Level.Text = RandomLogic.RandomLevel();
+            Result.Text = RandomLogic.CommonRandom();
 
         }
     }

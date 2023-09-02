@@ -1,3 +1,4 @@
+using DrawLosAssistantWinUI3.ResultPage;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -30,7 +31,7 @@ namespace DrawLosAssistantWinUI3
 
         private void CommonResult_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Frame.Navigate(typeof(Common));
         }
 
         private void RareResult_Click(object sender, RoutedEventArgs e)
@@ -40,7 +41,7 @@ namespace DrawLosAssistantWinUI3
 
         private void SuperRareResult_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Frame.Navigate(typeof(SuperRare));
         }
     }
 }
