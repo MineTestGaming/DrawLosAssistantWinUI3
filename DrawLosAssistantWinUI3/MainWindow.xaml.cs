@@ -51,6 +51,9 @@ namespace DrawLosAssistantWinUI3
                     case "Debug":
                         MainFrame.Navigate(typeof(BlankPage1));
                         break;
+                    case "Gacha":
+                        MainFrame.Navigate(typeof(Gacha));
+                        break;
                 }
             }
 

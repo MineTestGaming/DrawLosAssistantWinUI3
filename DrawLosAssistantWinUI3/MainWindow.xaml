@@ -13,6 +13,7 @@
         <NavigationView.MenuItems>
             <NavigationViewItem Icon="Home" Content="主页" Tag="Home"/>
             <NavigationViewItem Icon="SwitchApps" Content="Debug" Tag="Debug"/>
+            <NavigationViewItem Icon="List" Content="抽卡" Tag="Gacha"/>
         </NavigationView.MenuItems>
         <NavigationView.Content>
             <Frame x:Name="MainFrame"/>
