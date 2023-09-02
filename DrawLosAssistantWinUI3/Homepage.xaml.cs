@@ -33,7 +33,7 @@ namespace DrawLosAssistantWinUI3
         private void Start_Click(object sender, RoutedEventArgs e)
         {
 
-            Level.Text = RandomLogic.RandomLevel();
+           // Level.Text = RandomLogic.RandomLevel();
             Result.Text = RandomLogic.CommonRandom();
 
         }
