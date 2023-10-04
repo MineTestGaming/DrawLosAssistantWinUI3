@@ -8,7 +8,7 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="8f7691c7-7605-45be-bdd4-e21fd9330e24"
+    Name="DrawLotsAssistant"
     Publisher="CN=sutao"
     Version="1.0.0.0" />
 

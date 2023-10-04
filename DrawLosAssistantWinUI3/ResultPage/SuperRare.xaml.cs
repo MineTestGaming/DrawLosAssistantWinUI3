@@ -42,6 +42,7 @@ namespace DrawLosAssistantWinUI3.ResultPage
             {
                 dispatcherQueue.TryEnqueue(() =>
                 {
+                    Skip.Visibility = Visibility.Collapsed;
                     ResultDisplay.Visibility = Visibility.Visible;
                     Result.Text = RandomLogic.SuperRareRandom();
                 });
@@ -64,6 +65,7 @@ namespace DrawLosAssistantWinUI3.ResultPage
                     BGM.MediaPlayer.Pause();
                     BGM.MediaPlayer.Position = TimeSpan.Zero;
                     BGM.MediaPlayer.Play();
+                    Skip.Visibility = Visibility.Visible;
                     break;
 
             }
@@ -76,6 +78,14 @@ namespace DrawLosAssistantWinUI3.ResultPage
             GachaLoading.MediaPlayer.Dispose();
         }
 
+        private void Mute_Click(object sender, RoutedEventArgs e)
+        {
+            BGM.MediaPlayer.Pause();
+        }
 
+        private void Skip_Click(object sender, RoutedEventArgs e)
+        {
+            GachaLoading.MediaPlayer.Position = TimeSpan.MaxValue;
+        }
     }
 }

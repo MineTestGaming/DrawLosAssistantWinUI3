@@ -13,10 +13,19 @@
     <Grid>
         <MediaPlayerElement Name="BGM" Source="ms-appx:///Assets/Gacha.flac" AreTransportControlsEnabled="False" AutoPlay="True"/>
         <MediaPlayerElement Name="GachaLoading" Source="ms-appx:///Assets/SuperRare.mp4" AreTransportControlsEnabled="False" AutoPlay="True"/>
+        <RelativePanel>
+            <Button Name="Skip" Content="Skip" Click="Skip_Click" Margin="20" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True"/>
+        </RelativePanel>
         <RelativePanel Name="ResultDisplay" Visibility="Collapsed">
-            <Button Name="AnotherTry" Content="再来一发" Click="AnotherTry_Click"  Margin="10" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" />
+            <StackPanel Orientation="Horizontal" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="20">
+                <Button Name="Mute" Click="Mute_Click" Margin="10,0,10,0">
+                    <Button.Content>
+                        <SymbolIcon Symbol="Mute"/>
+                    </Button.Content>
+                </Button>
+                <Button Name="AnotherTry" Content="再来一发" Click="AnotherTry_Click"  Margin="10,0,0,0" />
+            </StackPanel>
             <TextBlock Text="Result" Name="Result" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" FontSize="128"/>
         </RelativePanel>
-
     </Grid>
 </Page>
