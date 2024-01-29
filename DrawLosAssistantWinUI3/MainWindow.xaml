@@ -16,7 +16,10 @@
             <NavigationViewItem Icon="List" Content="抽卡" Tag="Gacha"/>
         </NavigationView.MenuItems>
         <NavigationView.Content>
-            <Frame x:Name="MainFrame"/>
+            <Grid>
+                <InfoBar Name="Reseted" IsOpen="False" Title="重复名单已重置" Message="名单已抽完，将自动重置重复名单" IsClosable="True" />
+                <Frame x:Name="MainFrame"/>
+            </Grid>
         </NavigationView.Content>
 
     </NavigationView>

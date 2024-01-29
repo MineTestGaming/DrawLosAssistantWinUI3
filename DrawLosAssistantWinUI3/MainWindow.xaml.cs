@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -58,7 +59,10 @@ namespace DrawLosAssistantWinUI3
             }
 
         }
-
+        public static void ResetedMsg()
+        {
+            
+        }
 
         private void Window_Activated(object sender, WindowActivatedEventArgs args)
         {

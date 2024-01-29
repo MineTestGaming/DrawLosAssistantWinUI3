@@ -20,6 +20,7 @@ using System.Runtime.InteropServices;
 using DrawLosAssistantWinUI3.Models;
 using Windows.Media.Core;
 using Windows.Media;
+using System.Collections.ObjectModel;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.

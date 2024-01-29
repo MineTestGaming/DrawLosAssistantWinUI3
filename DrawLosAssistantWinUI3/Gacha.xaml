@@ -18,7 +18,11 @@
             <Image Source="ms-appx:///Assets/Background.jpg" Stretch="UniformToFill"/>
             <RelativePanel Grid.Row="1">
                 <TextBlock Text="抽签助手Gacha模式" FontSize="36" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="20"/>
-                <Button Name="StartGacha" Content="开始抽卡" Click="StartGacha_Click" Margin="20" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True"/> 
+                <Button Name="StartGacha" Click="StartGacha_Click" Margin="20" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True">
+                    <Button.Content>
+                        <SymbolIcon Symbol="Play"/>
+                    </Button.Content>
+                </Button>
             </RelativePanel>
         </Grid>
         

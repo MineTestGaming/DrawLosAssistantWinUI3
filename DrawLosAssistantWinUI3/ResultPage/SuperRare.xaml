@@ -14,7 +14,11 @@
         <MediaPlayerElement Name="BGM" Source="ms-appx:///Assets/Gacha.flac" AreTransportControlsEnabled="False" AutoPlay="True"/>
         <MediaPlayerElement Name="GachaLoading" Source="ms-appx:///Assets/SuperRare.mp4" AreTransportControlsEnabled="False" AutoPlay="True"/>
         <RelativePanel>
-            <Button Name="Skip" Content="Skip" Click="Skip_Click" Margin="20" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True"/>
+            <Button Name="Skip" Click="Skip_Click" Margin="20" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True">
+                <Button.Content>
+                    <SymbolIcon Symbol="Next"/>
+                </Button.Content>
+            </Button>
         </RelativePanel>
         <RelativePanel Name="ResultDisplay" Visibility="Collapsed">
             <StackPanel Orientation="Horizontal" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="20">
@@ -23,7 +27,9 @@
                         <SymbolIcon Symbol="Mute"/>
                     </Button.Content>
                 </Button>
-                <Button Name="AnotherTry" Content="再来一发" Click="AnotherTry_Click"  Margin="10,0,0,0" />
+                <Button Name="AnotherTry" Click="AnotherTry_Click"  Margin="10,0,0,0" >
+                    <SymbolIcon Symbol="Refresh"/>
+                </Button>
             </StackPanel>
             <TextBlock Text="Result" Name="Result" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" FontSize="128"/>
         </RelativePanel>

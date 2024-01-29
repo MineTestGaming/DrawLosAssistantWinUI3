@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml.Controls;
+using Microsoft.VisualBasic.Logging;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Graphics.Printing;
@@ -10,17 +14,36 @@ namespace DrawLosAssistantWinUI3.Models
 {
     public class RandomLogic
     {
+        private static ObservableCollection<int> CommonGachaGetIds = new ObservableCollection<int>();
+        private static ObservableCollection<int> SRGachaGetIds = new ObservableCollection<int>();
+
         public static string SuperRareRandom()
         {
             NameList.Load();
 
             Random random = new Random();
             int MaxNum = NameList.SuperRareList.Count - 1;
-            int resultNum = random.Next(0, MaxNum);
+            int resultNum;
+            resultNum = 0;
+
+            for (bool ResultGet = false; ResultGet == false;)  // 防止重复
+            {
+                resultNum = random.Next(0, MaxNum);
+                if (SRGachaGetIds.Count == MaxNum)
+                {
+                    SRGachaGetIds.Clear();
+                }
+                if (!SRGachaGetIds.Contains(resultNum))
+                {
+                    SRGachaGetIds.Add(resultNum);
+                    ResultGet = true;
+                }
+            }
 
 
             return NameList.SuperRareList[resultNum];
         }
+
 
         public static string CommonRandom()
         {
@@ -28,11 +51,27 @@ namespace DrawLosAssistantWinUI3.Models
 
             Random random = new Random();
             int MaxNum = NameList.Name.Count - 1;
-            int resultNum = random.Next(0, MaxNum);
-
+            int resultNum;
+            resultNum = 0;
+            
+            for(bool ResultGet = false; ResultGet == false; )  // 防止重复
+            {
+                resultNum = random.Next(0, MaxNum);
+                if ( CommonGachaGetIds.Count == MaxNum )
+                {
+                    CommonGachaGetIds.Clear();
+                }
+                if (!CommonGachaGetIds.Contains(resultNum))
+                {
+                    CommonGachaGetIds.Add(resultNum);
+                    ResultGet = true;
+                }
+            }
 
             return NameList.Name[resultNum];
         }
+
+
 
         public static string RandomLevel()
         {
