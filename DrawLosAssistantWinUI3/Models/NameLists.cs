@@ -57,28 +57,28 @@ namespace DrawLosAssistantWinUI3.Models
 
         public static void Save(string type)
         {
-            var localeSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             switch (type)
             {
                 default:
-                    localeSettings.Values["NameList"] = JsonConvert.SerializeObject(Name);
+                    localSettings.Values["NameList"] = JsonConvert.SerializeObject(Name);
                     // localeSettings.Values["RareList"] = JsonConvert.SerializeObject(RareList);
-                    localeSettings.Values["SuperRareList"] = JsonConvert.SerializeObject(SuperRareList);
+                    localSettings.Values["SuperRareList"] = JsonConvert.SerializeObject(SuperRareList);
                     break;
                 case "Normal":
-                    localeSettings.Values["NameList"] = JsonConvert.SerializeObject(Name);
+                    localSettings.Values["NameList"] = JsonConvert.SerializeObject(Name);
                     break;
                 /*  case "Rare":
                  *  localeSettings.Values["RareList"] = JsonConvert.SerializeObject(RareList);
                  *  break; 
                  */
                 case "Super Rare":
-                    localeSettings.Values["SuperRareList"] = JsonConvert.SerializeObject(SuperRareList);
+                    localSettings.Values["SuperRareList"] = JsonConvert.SerializeObject(SuperRareList);
                     break;
                 case "All":
-                    localeSettings.Values["NameList"] = JsonConvert.SerializeObject(Name);
+                    localSettings.Values["NameList"] = JsonConvert.SerializeObject(Name);
                     // localeSettings.Values["RareList"] = JsonConvert.SerializeObject(RareList);
-                    localeSettings.Values["SuperRareList"] = JsonConvert.SerializeObject(SuperRareList);
+                    localSettings.Values["SuperRareList"] = JsonConvert.SerializeObject(SuperRareList);
                     break;
             }
         }

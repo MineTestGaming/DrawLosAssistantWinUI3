@@ -12,21 +12,23 @@
     <RelativePanel>
         <TextBlock Text="设置" FontSize="48" Margin="20,20,0,0" Name="SettingsTitle"/>
         <StackPanel RelativePanel.Below="SettingsTitle" Orientation="Vertical">
-          <StackPanel Orientation="Vertical" Margin="20,0,10,0">
+            <StackPanel Orientation="Vertical" Margin="20,0,10,0">
                 <TextBlock Text="普通名单" FontSize="36"/>
                 <TextBlock Text="手动添加名单" FontSize="24"/>
-            <Grid Margin="0,10,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <TextBox x:Name="Input" PlaceholderText="名字" Margin="0,0,10,0" Grid.Column="0"/>
-                <Button x:Name="Add" Content="添加" Margin="10,0,0,0" Grid.Column="1" Click="Add_Click"/>
-            </Grid>
-            <TextBlock Text="从txt导入" FontSize="24"/>
-                <Button x:Name="Import" Content="导入" />
+                <Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="Input" PlaceholderText="名字" Margin="0,0,10,0" Grid.Column="0"/>
+                    <Button x:Name="Add" Content="添加" Margin="10,0,0,0" Grid.Column="1" Click="Add_Click"/>
+                </Grid>
+                <TextBlock Text="从Json导入" FontSize="24"/>
+                <Button x:Name="Import" Content="导入" Click="Import_Click"/>
+                <TextBlock Text="导出为Json" FontSize="24"/>
+                <Button x:Name="Export" Content="导出" Click="Export_Click"/>
             </StackPanel>
-          <StackPanel Orientation="Vertical" Margin="20,0,20,0">
+            <StackPanel Orientation="Vertical" Margin="20,0,20,0">
                 <TextBlock Text="Super Rare名单" FontSize="36"/>
                 <TextBlock Text="手动添加名单" FontSize="24"/>
                 <Grid Margin="0,10,0,0">
@@ -37,13 +39,13 @@
                     <TextBox x:Name="InputSR" PlaceholderText="名字" Margin="0,0,10,0" Grid.Column="0"/>
                     <Button x:Name="AddSuperRare" Content="添加" Margin="10,0,0,0" Grid.Column="1" Click="AddSuperRare_Click"/>
                 </Grid>
-                <TextBlock Text="从txt导入" FontSize="24"/>
-                <Button x:Name="ImportSuperRare" Content="导入" />
-            <TextBlock Text="重置此应用" FontSize="36"/>
-            <Button x:Name="Clear" Content="重置" Click="Clear_Click"/>
+                <TextBlock Text="从Json导入" FontSize="24"/>
+                <Button x:Name="ImportSuperRare" Content="导入" Click="ImportSuperRare_Click"/>
+                <TextBlock Text="导出为Json" FontSize="24"/>
+                <Button x:Name="ExportSR" Content="导出" Click="ExportSR_Click"/>
+                <TextBlock Text="重置此应用" FontSize="36"/>
+                <Button x:Name="Clear" Content="重置" Click="Clear_Click"/>
             </StackPanel>
         </StackPanel>
-
     </RelativePanel>
-
 </Page>
