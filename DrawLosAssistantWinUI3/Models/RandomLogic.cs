@@ -1,14 +1,5 @@
-﻿using Microsoft.UI.Xaml.Controls;
-using Microsoft.VisualBasic.Logging;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Graphics.Printing;
 
 namespace DrawLosAssistantWinUI3.Models
 {
@@ -30,6 +21,11 @@ namespace DrawLosAssistantWinUI3.Models
             {
                 resultNum = random.Next(0, MaxNum);
                 if (SRGachaGetIds.Count == MaxNum)
+                {
+                    SRGachaGetIds.Clear();
+                    return NameList.SuperRareList[MaxNum];
+                }
+                if (SRGachaGetIds.Count > MaxNum) 
                 {
                     SRGachaGetIds.Clear();
                 }
@@ -58,6 +54,11 @@ namespace DrawLosAssistantWinUI3.Models
             {
                 resultNum = random.Next(0, MaxNum);
                 if ( CommonGachaGetIds.Count == MaxNum )
+                {
+                    CommonGachaGetIds.Clear();
+                    return NameList.Name[MaxNum];
+                }
+                if (CommonGachaGetIds.Count > MaxNum)
                 {
                     CommonGachaGetIds.Clear();
                 }

@@ -1,24 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
 using DrawLosAssistantWinUI3.Models;
 using Windows.Storage;
 using Windows.Storage.Provider;
-using System.Windows.Interop;
-using DrawLosAssistantWinUI3.FromWinUI3Gallery;
-using Windows.Storage.Pickers;
-
+using System.Threading.Tasks;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -54,9 +41,29 @@ namespace DrawLosAssistantWinUI3
             InputSR.Text = "";
         }
 
-
-        private void Import_Click(object sender, RoutedEventArgs e)
+        private async void Import_Click(object sender, RoutedEventArgs e)
         {
+            var ImportLocationPicker = new Windows.Storage.Pickers.FileOpenPicker();
+            ImportLocationPicker.FileTypeFilter.Add(".json");
+            
+            var localSettings = ApplicationData.Current.LocalSettings;
+            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
+            WinRT.Interop.InitializeWithWindow.Initialize(ImportLocationPicker, hWnd);
+
+            StorageFile file = await ImportLocationPicker.PickSingleFileAsync();
+
+            if (file != null)
+            {
+                string ImportContent = await FileIO.ReadTextAsync(file);
+                localSettings.Values["NameList"] = ImportContent;
+                SaveStatus.Severity = InfoBarSeverity.Success;
+                SaveStatus.Title = "导入成功";
+                SaveStatus.Content = "普通名单导入成功";
+                SaveStatus.IsOpen = true;
+                await Task.Delay(3000);
+                SaveStatus.IsOpen = false;
+
+            }
 
         }
 
@@ -64,11 +71,10 @@ namespace DrawLosAssistantWinUI3
         {
             var ExportLocationPicker = new Windows.Storage.Pickers.FileSavePicker();
             ExportLocationPicker.SuggestedFileName = "NameList";
-            ExportLocationPicker.FileTypeChoices.Add("Json Files", new List<string>() { ".json" }); 
+            ExportLocationPicker.FileTypeChoices.Add("Json文件", new List<string>() { ".json" });
             var localSettings = ApplicationData.Current.LocalSettings;
             nint hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
             WinRT.Interop.InitializeWithWindow.Initialize(ExportLocationPicker, hWnd);
-
 
             StorageFile exportFile = await ExportLocationPicker.PickSaveFileAsync();
 
@@ -81,17 +87,48 @@ namespace DrawLosAssistantWinUI3
                 if (updateStatus == FileUpdateStatus.Complete)
                 {
                     // 导出成功Banner
+                    SaveStatus.Severity = InfoBarSeverity.Success;
+                    SaveStatus.Title = "保存成功";
+                    SaveStatus.Content = "普通名单保存成功";
+                    SaveStatus.IsOpen = true;
+                    await Task.Delay(3000);
+                    SaveStatus.IsOpen = false;
                 }
                 if (updateStatus == FileUpdateStatus.Failed)
                 {
                     // 导出失败Banner
+                    SaveStatus.Severity = InfoBarSeverity.Error;
+                    SaveStatus.Title = "保存失败";
+                    SaveStatus.Content = "请检查是否有对应权限，文件是否被占用等";
+                    SaveStatus.IsOpen = true;
+                    await Task.Delay(3000);
+                    SaveStatus.IsOpen = false;
                 }
             }
-
         }
 
-        private void ImportSuperRare_Click(object sender, RoutedEventArgs e)
+        private async void ImportSuperRare_Click(object sender, RoutedEventArgs e)
         {
+            var ImportLocationPicker = new Windows.Storage.Pickers.FileOpenPicker();
+            ImportLocationPicker.FileTypeFilter.Add(".json");
+            var localSettings = ApplicationData.Current.LocalSettings;
+            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
+            WinRT.Interop.InitializeWithWindow.Initialize(ImportLocationPicker, hWnd);
+
+            StorageFile file = await ImportLocationPicker.PickSingleFileAsync();
+
+            if (file != null)
+            {
+                string ImportContent = await FileIO.ReadTextAsync(file);
+                localSettings.Values["SuperRareList"] = ImportContent;
+                SaveStatus.Severity = InfoBarSeverity.Success;
+                SaveStatus.Title = "导入成功";
+                SaveStatus.Content = "SR名单导入成功";
+                SaveStatus.IsOpen = true;
+                await Task.Delay(3000);
+                SaveStatus.IsOpen = false;
+
+            }
 
         }
 
@@ -104,7 +141,6 @@ namespace DrawLosAssistantWinUI3
             nint hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
             WinRT.Interop.InitializeWithWindow.Initialize(ExportLocationPicker, hWnd);
 
-
             StorageFile exportFile = await ExportLocationPicker.PickSaveFileAsync();
 
             if (exportFile != null)
@@ -116,13 +152,35 @@ namespace DrawLosAssistantWinUI3
                 if (updateStatus == FileUpdateStatus.Complete)
                 {
                     // 导出成功Banner
+                    SaveStatus.Severity = InfoBarSeverity.Success;
+                    SaveStatus.Title = "保存成功";
+                    SaveStatus.Content = "SR名单保存成功";
+                    SaveStatus.IsOpen = true;
+                    await Task.Delay(3000);
+                    SaveStatus.IsOpen = false;
                 }
                 if (updateStatus == FileUpdateStatus.Failed)
                 {
                     // 导出失败Banner
+                    SaveStatus.Severity = InfoBarSeverity.Error;
+                    SaveStatus.Title = "保存失败";
+                    SaveStatus.Content = "请检查是否有对应权限，文件是否被占用等";
+                    SaveStatus.IsOpen = true;
+                    await Task.Delay(3000);
+                    SaveStatus.IsOpen = false;
                 }
-            }
 
+            }
+        }
+
+        private async void ShowDevInfo(string devInfo)
+        {
+            SaveStatus.Severity = InfoBarSeverity.Informational;
+            SaveStatus.Title = "Debug Info";
+            SaveStatus.Content = devInfo;
+            SaveStatus.IsOpen = true;
+            await Task.Delay(3000);
+            SaveStatus.IsOpen = false;
         }
     }
 }
