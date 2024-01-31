@@ -12,10 +12,10 @@
   <ItemGroup>
     <Content Remove="Assets\Gacha.mp4" />
     <Content Remove="Assets\Gacha.wav" />
-    <Content Remove="Assets\Rare.mp4" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\Gacha.flac" />
+    <None Remove="Assets\Rare.mp4" />
     <None Remove="BlankPage1.xaml" />
     <None Remove="Gacha.xaml" />
     <None Remove="Homepage.xaml" />
@@ -44,6 +44,12 @@
     </Content>
     <Content Update="Assets\SuperRare.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Assets\Rare.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
