@@ -15,10 +15,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\Gacha.flac" />
+    <None Remove="Assets\Rare.mp4" />
     <None Remove="BlankPage1.xaml" />
     <None Remove="Gacha.xaml" />
     <None Remove="Homepage.xaml" />
     <None Remove="ResultPage\Common.xaml" />
+    <None Remove="ResultPage\Rare.xaml" />
     <None Remove="ResultPage\SuperRare.xaml" />
     <None Remove="Settings.xaml" />
   </ItemGroup>
@@ -37,9 +39,24 @@
     <Content Update="Assets\Gacha.flac">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Update="Assets\Rare.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\SuperRare.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Assets\Rare.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="ResultPage\Rare.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>

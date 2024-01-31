@@ -34,6 +34,13 @@ namespace DrawLosAssistantWinUI3
             Input.Text = "";
         }
 
+        private void AddRare_Click(object sender, RoutedEventArgs e)
+        {
+            NameList.RareList.Add(NameList.Count, Input.Text);
+            NameList.Save("Rare");
+            InputR.Text = "";
+        }
+
         private void AddSuperRare_Click(object sender, RoutedEventArgs e)
         {
             NameList.SuperRareList.Add(NameList.SuperRareList.Count, InputSR.Text);
@@ -104,6 +111,72 @@ namespace DrawLosAssistantWinUI3
                     await Task.Delay(3000);
                     SaveStatus.IsOpen = false;
                 }
+            }
+        }
+
+        private async void ImportRare_Click(object sender, RoutedEventArgs e)
+        {
+            var ImportLocationPicker = new Windows.Storage.Pickers.FileOpenPicker();
+            ImportLocationPicker.FileTypeFilter.Add(".json");
+            var localSettings = ApplicationData.Current.LocalSettings;
+            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
+            WinRT.Interop.InitializeWithWindow.Initialize(ImportLocationPicker, hWnd);
+
+            StorageFile file = await ImportLocationPicker.PickSingleFileAsync();
+
+            if (file != null)
+            {
+                string ImportContent = await FileIO.ReadTextAsync(file);
+                localSettings.Values["RareList"] = ImportContent;
+                SaveStatus.Severity = InfoBarSeverity.Success;
+                SaveStatus.Title = "导入成功";
+                SaveStatus.Content = "R名单导入成功";
+                SaveStatus.IsOpen = true;
+                await Task.Delay(3000);
+                SaveStatus.IsOpen = false;
+
+            }
+
+        }
+
+        private async void ExportR_Click(object sender, RoutedEventArgs e)
+        {
+            var ExportLocationPicker = new Windows.Storage.Pickers.FileSavePicker();
+            ExportLocationPicker.SuggestedFileName = "RareNameList";
+            ExportLocationPicker.FileTypeChoices.Add("Json Files", new List<string>() { ".json" });
+            var localSettings = ApplicationData.Current.LocalSettings;
+            nint hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
+            WinRT.Interop.InitializeWithWindow.Initialize(ExportLocationPicker, hWnd);
+
+            StorageFile exportFile = await ExportLocationPicker.PickSaveFileAsync();
+
+            if (exportFile != null)
+            {
+                CachedFileManager.DeferUpdates(exportFile);
+
+                await FileIO.WriteTextAsync(exportFile, localSettings.Values["RareList"].ToString());
+                FileUpdateStatus updateStatus = await CachedFileManager.CompleteUpdatesAsync(exportFile);
+                if (updateStatus == FileUpdateStatus.Complete)
+                {
+                    // 导出成功Banner
+                    SaveStatus.Severity = InfoBarSeverity.Success;
+                    SaveStatus.Title = "保存成功";
+                    SaveStatus.Content = "R名单保存成功";
+                    SaveStatus.IsOpen = true;
+                    await Task.Delay(3000);
+                    SaveStatus.IsOpen = false;
+                }
+                if (updateStatus == FileUpdateStatus.Failed)
+                {
+                    // 导出失败Banner
+                    SaveStatus.Severity = InfoBarSeverity.Error;
+                    SaveStatus.Title = "保存失败";
+                    SaveStatus.Content = "请检查是否有对应权限，文件是否被占用等";
+                    SaveStatus.IsOpen = true;
+                    await Task.Delay(3000);
+                    SaveStatus.IsOpen = false;
+                }
+
             }
         }
 

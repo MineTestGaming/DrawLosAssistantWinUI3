@@ -39,6 +39,9 @@ namespace DrawLosAssistantWinUI3
                 case "Super Rare":
                     this.Frame.Navigate(typeof(SuperRare));
                     break;
+                case "Rare":
+                    this.Frame.Navigate(typeof(Rare));
+                    break;
                 case "Common":
                     this.Frame.Navigate(typeof(Common));
                     break;
