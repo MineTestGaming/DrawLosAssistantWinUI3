@@ -36,7 +36,7 @@ namespace DrawLosAssistantWinUI3
 
         private void RareResult_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Frame.Navigate(typeof(Rare));
         }
 
         private void SuperRareResult_Click(object sender, RoutedEventArgs e)

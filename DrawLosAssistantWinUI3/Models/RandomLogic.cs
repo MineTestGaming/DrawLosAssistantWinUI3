@@ -40,6 +40,37 @@ namespace DrawLosAssistantWinUI3.Models
             return NameList.SuperRareList[resultNum];
         }
 
+        public static string RareRandom()
+        {
+            NameList.Load();
+
+            Random random = new Random();
+            int MaxNum = NameList.RareList.Count - 1;
+            int resultNum;
+            resultNum = 0;
+
+            for (bool ResultGet = false; ResultGet == false;)  // 防止重复
+            {
+                resultNum = random.Next(0, MaxNum);
+                if (SRGachaGetIds.Count == MaxNum)
+                {
+                    SRGachaGetIds.Clear();
+                    return NameList.RareList[MaxNum];
+                }
+                if (SRGachaGetIds.Count > MaxNum)
+                {
+                    SRGachaGetIds.Clear();
+                }
+                if (!SRGachaGetIds.Contains(resultNum))
+                {
+                    SRGachaGetIds.Add(resultNum);
+                    ResultGet = true;
+                }
+            }
+
+
+            return NameList.RareList[resultNum];
+        }
 
         public static string CommonRandom()
         {
@@ -84,15 +115,14 @@ namespace DrawLosAssistantWinUI3.Models
             {
                 return "Super Rare";
             }
-           /* else if (levelNum > 850)
+            else if (levelNum > 750)
             {
                 return "Rare";
-            } */
+            }
             else
             {
                 return "Common";
             }
-
         }
     }
 }

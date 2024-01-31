@@ -6,13 +6,13 @@ namespace DrawLosAssistantWinUI3.Models
     public class NameList
     {
         public static Dictionary<int, string> Name = new Dictionary<int, string>();
-        //  public static Dictionary<int, string> RareList = new Dictionary<int, string>();
+        public static Dictionary<int, string> RareList = new Dictionary<int, string>();
         public static Dictionary<int, string> SuperRareList = new Dictionary<int, string>();
 
         public static void InitializeList()
         {
             InitializeNormalList();
-            // InitializeRareList();
+            InitializeRareList();
             InitializeSuperRareList();
         }
 
@@ -30,14 +30,14 @@ namespace DrawLosAssistantWinUI3.Models
             Save("Normal");
         }
 
-        /*  public static void InitializeRareList()
-          {
-              // Rare List
-              RareList.Clear();
-              RareList.Add(RareList.Count, "ペコリム");
+        public static void InitializeRareList()
+        {
+            // Rare List
+            RareList.Clear();
+            RareList.Add(RareList.Count, "ペコリム");
 
-              Save("Rare");
-          } */
+            Save("Rare");
+        }
 
         public static void InitializeSuperRareList()
         {
@@ -60,24 +60,19 @@ namespace DrawLosAssistantWinUI3.Models
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             switch (type)
             {
-                default:
-                    localSettings.Values["NameList"] = JsonConvert.SerializeObject(Name);
-                    // localeSettings.Values["RareList"] = JsonConvert.SerializeObject(RareList);
-                    localSettings.Values["SuperRareList"] = JsonConvert.SerializeObject(SuperRareList);
-                    break;
                 case "Normal":
                     localSettings.Values["NameList"] = JsonConvert.SerializeObject(Name);
                     break;
-                /*  case "Rare":
-                 *  localeSettings.Values["RareList"] = JsonConvert.SerializeObject(RareList);
-                 *  break; 
-                 */
+                case "Rare":
+                    localSettings.Values["RareList"] = JsonConvert.SerializeObject(RareList);
+                    break;
                 case "Super Rare":
                     localSettings.Values["SuperRareList"] = JsonConvert.SerializeObject(SuperRareList);
                     break;
                 case "All":
+                default:
                     localSettings.Values["NameList"] = JsonConvert.SerializeObject(Name);
-                    // localeSettings.Values["RareList"] = JsonConvert.SerializeObject(RareList);
+                    localSettings.Values["RareList"] = JsonConvert.SerializeObject(RareList);
                     localSettings.Values["SuperRareList"] = JsonConvert.SerializeObject(SuperRareList);
                     break;
             }
@@ -94,14 +89,14 @@ namespace DrawLosAssistantWinUI3.Models
             {
                 InitializeNormalList();
             }
-            /* if (localeSettings.Values.ContainsKey("RareList"))
-             {
-                 Name = JsonConvert.DeserializeObject<Dictionary<int, string>>((string)localeSettings.Values["RareList"]);
-             }
-             else
-             {
-                 InitializeRareList();
-             } */
+            if (localeSettings.Values.ContainsKey("RareList"))
+            {
+                Name = JsonConvert.DeserializeObject<Dictionary<int, string>>((string)localeSettings.Values["RareList"]);
+            }
+            else
+            {
+                InitializeRareList();
+            } 
             if (localeSettings.Values.ContainsKey("SuperRareList"))
             {
                 SuperRareList = JsonConvert.DeserializeObject<Dictionary<int, string>>((string)localeSettings.Values["SuperRareList"]);
@@ -111,8 +106,5 @@ namespace DrawLosAssistantWinUI3.Models
                 InitializeSuperRareList();
             }
         }
-
-
     }
-
 }
