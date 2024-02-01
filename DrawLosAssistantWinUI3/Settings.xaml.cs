@@ -247,5 +247,10 @@ namespace DrawLosAssistantWinUI3
             await Task.Delay(3000);
             SaveStatus.IsOpen = false;
         }
+
+        private void AudioType_Tapped(object sender, Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+
+        }
     }
 }
