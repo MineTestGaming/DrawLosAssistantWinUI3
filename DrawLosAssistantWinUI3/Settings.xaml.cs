@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
+using DrawLosAssistantWinUI3.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using DrawLosAssistantWinUI3.Models;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Provider;
-using System.Threading.Tasks;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -36,7 +36,7 @@ namespace DrawLosAssistantWinUI3
 
         private void AddRare_Click(object sender, RoutedEventArgs e)
         {
-            NameList.RareList.Add(NameList.Count, Input.Text);
+            NameList.RareList.Add(NameList.RareList.Count, Input.Text);
             NameList.Save("Rare");
             InputR.Text = "";
         }
@@ -52,7 +52,7 @@ namespace DrawLosAssistantWinUI3
         {
             var ImportLocationPicker = new Windows.Storage.Pickers.FileOpenPicker();
             ImportLocationPicker.FileTypeFilter.Add(".json");
-            
+
             var localSettings = ApplicationData.Current.LocalSettings;
             var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
             WinRT.Interop.InitializeWithWindow.Initialize(ImportLocationPicker, hWnd);
@@ -69,9 +69,7 @@ namespace DrawLosAssistantWinUI3
                 SaveStatus.IsOpen = true;
                 await Task.Delay(3000);
                 SaveStatus.IsOpen = false;
-
             }
-
         }
 
         private async void Export_Click(object sender, RoutedEventArgs e)
@@ -130,13 +128,11 @@ namespace DrawLosAssistantWinUI3
                 localSettings.Values["RareList"] = ImportContent;
                 SaveStatus.Severity = InfoBarSeverity.Success;
                 SaveStatus.Title = "导入成功";
-                SaveStatus.Content = "R名单导入成功";
+                SaveStatus.Content = "Rare名单导入成功";
                 SaveStatus.IsOpen = true;
                 await Task.Delay(3000);
                 SaveStatus.IsOpen = false;
-
             }
-
         }
 
         private async void ExportR_Click(object sender, RoutedEventArgs e)
@@ -176,7 +172,6 @@ namespace DrawLosAssistantWinUI3
                     await Task.Delay(3000);
                     SaveStatus.IsOpen = false;
                 }
-
             }
         }
 
@@ -200,9 +195,7 @@ namespace DrawLosAssistantWinUI3
                 SaveStatus.IsOpen = true;
                 await Task.Delay(3000);
                 SaveStatus.IsOpen = false;
-
             }
-
         }
 
         private async void ExportSR_Click(object sender, RoutedEventArgs e)
@@ -242,7 +235,6 @@ namespace DrawLosAssistantWinUI3
                     await Task.Delay(3000);
                     SaveStatus.IsOpen = false;
                 }
-
             }
         }
 

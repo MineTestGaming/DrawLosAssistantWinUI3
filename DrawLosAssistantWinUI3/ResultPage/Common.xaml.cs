@@ -15,7 +15,8 @@ namespace DrawLosAssistantWinUI3.ResultPage
     /// </summary>
     public sealed partial class Common : Page
     {
-        DispatcherQueue dispatcherQueue;
+        private DispatcherQueue dispatcherQueue;
+
         public Common()
         {
             this.InitializeComponent();
@@ -26,26 +27,18 @@ namespace DrawLosAssistantWinUI3.ResultPage
             // MediaPlayerDetection();
         }
 
-
-    
-
-
-
         private async void GachaVideoPlayer_MediaEnded(Windows.Media.Playback.MediaPlayer sender, object args)
         {
             await Task.Run(() =>
             {
-               dispatcherQueue.TryEnqueue(() =>
-                {
-                    Skip.Visibility = Visibility.Collapsed;
-                    ResultDisplay.Visibility = Visibility.Visible;
-                    Result.Text = RandomLogic.CommonRandom();
-               });
+                dispatcherQueue.TryEnqueue(() =>
+                 {
+                     Skip.Visibility = Visibility.Collapsed;
+                     ResultDisplay.Visibility = Visibility.Visible;
+                     Result.Text = RandomLogic.CommonRandom();
+                 });
             });
-            
-
         }
-
 
         private void AnotherTry_Click(object sender, RoutedEventArgs e)
         {
@@ -56,9 +49,11 @@ namespace DrawLosAssistantWinUI3.ResultPage
                 case "Super Rare":
                     this.Frame.Navigate(typeof(SuperRare));
                     break;
+
                 case "Rare":
                     this.Frame.Navigate(typeof(Rare));
                     break;
+
                 case "Common":
                     ResultDisplay.Visibility = Visibility.Collapsed;
                     GachaLoading.MediaPlayer.Play();
@@ -67,7 +62,6 @@ namespace DrawLosAssistantWinUI3.ResultPage
                     BGM.MediaPlayer.Play();
                     Skip.Visibility = Visibility.Visible;
                     break;
-
             }
         }
 

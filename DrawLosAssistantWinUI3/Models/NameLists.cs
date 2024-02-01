@@ -16,7 +16,6 @@ namespace DrawLosAssistantWinUI3.Models
             InitializeSuperRareList();
         }
 
-
         public static void InitializeNormalList()
         {
             // Normal List
@@ -49,11 +48,11 @@ namespace DrawLosAssistantWinUI3.Models
             Save("Super Rare");
         }
 
+        public static int Count
+        { get { return Name.Count; } }
 
-
-        public static int Count { get { return Name.Count; } }
-
-        public static string GetName(int index) { return Name[index]; }
+        public static string GetName(int index)
+        { return Name[index]; }
 
         public static void Save(string type)
         {
@@ -63,12 +62,15 @@ namespace DrawLosAssistantWinUI3.Models
                 case "Normal":
                     localSettings.Values["NameList"] = JsonConvert.SerializeObject(Name);
                     break;
+
                 case "Rare":
                     localSettings.Values["RareList"] = JsonConvert.SerializeObject(RareList);
                     break;
+
                 case "Super Rare":
                     localSettings.Values["SuperRareList"] = JsonConvert.SerializeObject(SuperRareList);
                     break;
+
                 case "All":
                 default:
                     localSettings.Values["NameList"] = JsonConvert.SerializeObject(Name);
@@ -91,12 +93,12 @@ namespace DrawLosAssistantWinUI3.Models
             }
             if (localeSettings.Values.ContainsKey("RareList"))
             {
-                Name = JsonConvert.DeserializeObject<Dictionary<int, string>>((string)localeSettings.Values["RareList"]);
+                RareList = JsonConvert.DeserializeObject<Dictionary<int, string>>((string)localeSettings.Values["RareList"]);
             }
             else
             {
                 InitializeRareList();
-            } 
+            }
             if (localeSettings.Values.ContainsKey("SuperRareList"))
             {
                 SuperRareList = JsonConvert.DeserializeObject<Dictionary<int, string>>((string)localeSettings.Values["SuperRareList"]);

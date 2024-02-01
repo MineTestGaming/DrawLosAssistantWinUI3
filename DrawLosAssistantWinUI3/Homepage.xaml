@@ -2,16 +2,15 @@
 <Page
     x:Class="DrawLosAssistantWinUI3.Homepage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:DrawLosAssistantWinUI3"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <RelativePanel>
-        <TextBlock x:Name="Result" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" Text="研究生低效挑选器" FontSize="64"/>
+        <TextBlock x:Name="Result" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" Text="研究生低效挑选器" FontSize="64" />
         <!--TextBlock x:Name="Level" RelativePanel.Below="Result" /-->
-        <Button RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Content="开始抽签" Margin="20" Name="Start" Click="Start_Click"/>
+        <Button RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Content="开始抽签" Margin="20" Name="Start" Click="Start_Click" />
     </RelativePanel>
 </Page>

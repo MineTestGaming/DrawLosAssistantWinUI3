@@ -1,21 +1,7 @@
 using DrawLosAssistantWinUI3.Models;
-using DrawLosAssistantWinUI3.ResultPage;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Gaming.Preview.GamesEnumeration;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -34,8 +20,6 @@ namespace DrawLosAssistantWinUI3
             NameList.Load();
         }
 
-
-
         private void Nav_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
             if (args.IsSettingsInvoked)
@@ -49,19 +33,20 @@ namespace DrawLosAssistantWinUI3
                     case "Home":
                         MainFrame.Navigate(typeof(Homepage));
                         break;
+
                     case "Debug":
                         MainFrame.Navigate(typeof(BlankPage1));
                         break;
+
                     case "Gacha":
                         MainFrame.Navigate(typeof(Gacha));
                         break;
                 }
             }
-
         }
+
         public static void ResetedMsg()
         {
-            
         }
 
         private void Window_Activated(object sender, WindowActivatedEventArgs args)

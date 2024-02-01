@@ -2,20 +2,20 @@
 <Page
     x:Class="DrawLosAssistantWinUI3.ResultPage.Rare"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:DrawLosAssistantWinUI3.ResultPage"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    Unloaded="Page_Unloaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <MediaPlayerElement Name="BGM" Source="ms-appx:///Assets/Gacha.flac" AreTransportControlsEnabled="False" AutoPlay="True"/>
-        <MediaPlayerElement Name="GachaLoading" Source="ms-appx:///Assets/Rare.mp4" AreTransportControlsEnabled="False" AutoPlay="True"/>
+        <MediaPlayerElement Name="BGM" Source="ms-appx:///Assets/Gacha.flac" AreTransportControlsEnabled="False" AutoPlay="True" />
+        <MediaPlayerElement Name="GachaLoading" Source="ms-appx:///Assets/Rare.mp4" AreTransportControlsEnabled="False" AutoPlay="True" />
         <RelativePanel>
             <Button Name="Skip" Click="Skip_Click" Margin="20" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True">
                 <Button.Content>
-                    <SymbolIcon Symbol="Next"/>
+                    <SymbolIcon Symbol="Next" />
                 </Button.Content>
             </Button>
         </RelativePanel>
@@ -23,14 +23,14 @@
             <StackPanel Orientation="Horizontal" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="20">
                 <Button Name="Mute" Click="Mute_Click" Margin="10,0,10,0">
                     <Button.Content>
-                        <SymbolIcon Symbol="Mute"/>
+                        <SymbolIcon Symbol="Mute" />
                     </Button.Content>
                 </Button>
-                <Button Name="AnotherTry" Click="AnotherTry_Click"  Margin="10,0,0,0" >
-                    <SymbolIcon Symbol="Refresh"/>
+                <Button Name="AnotherTry" Click="AnotherTry_Click"  Margin="10,0,0,0">
+                    <SymbolIcon Symbol="Refresh" />
                 </Button>
             </StackPanel>
-            <TextBlock Text="Result" Name="Result" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" FontSize="128"/>
+            <TextBlock Text="Result" Name="Result" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" FontSize="128" />
         </RelativePanel>
     </Grid>
 </Page>

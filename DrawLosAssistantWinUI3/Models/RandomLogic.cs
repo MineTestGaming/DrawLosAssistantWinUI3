@@ -6,6 +6,7 @@ namespace DrawLosAssistantWinUI3.Models
     public class RandomLogic
     {
         private static ObservableCollection<int> CommonGachaGetIds = new ObservableCollection<int>();
+        private static ObservableCollection<int> RGachaGetIds = new ObservableCollection<int>();
         private static ObservableCollection<int> SRGachaGetIds = new ObservableCollection<int>();
 
         public static string SuperRareRandom()
@@ -25,7 +26,7 @@ namespace DrawLosAssistantWinUI3.Models
                     SRGachaGetIds.Clear();
                     return NameList.SuperRareList[MaxNum];
                 }
-                if (SRGachaGetIds.Count > MaxNum) 
+                if (SRGachaGetIds.Count > MaxNum)
                 {
                     SRGachaGetIds.Clear();
                 }
@@ -35,7 +36,6 @@ namespace DrawLosAssistantWinUI3.Models
                     ResultGet = true;
                 }
             }
-
 
             return NameList.SuperRareList[resultNum];
         }
@@ -52,22 +52,21 @@ namespace DrawLosAssistantWinUI3.Models
             for (bool ResultGet = false; ResultGet == false;)  // 防止重复
             {
                 resultNum = random.Next(0, MaxNum);
-                if (SRGachaGetIds.Count == MaxNum)
+                if (RGachaGetIds.Count == MaxNum)
                 {
-                    SRGachaGetIds.Clear();
+                    RGachaGetIds.Clear();
                     return NameList.RareList[MaxNum];
                 }
-                if (SRGachaGetIds.Count > MaxNum)
+                if (RGachaGetIds.Count > MaxNum)
                 {
-                    SRGachaGetIds.Clear();
+                    RGachaGetIds.Clear();
                 }
-                if (!SRGachaGetIds.Contains(resultNum))
+                if (!RGachaGetIds.Contains(resultNum))
                 {
-                    SRGachaGetIds.Add(resultNum);
+                    RGachaGetIds.Add(resultNum);
                     ResultGet = true;
                 }
             }
-
 
             return NameList.RareList[resultNum];
         }
@@ -80,11 +79,11 @@ namespace DrawLosAssistantWinUI3.Models
             int MaxNum = NameList.Name.Count - 1;
             int resultNum;
             resultNum = 0;
-            
-            for(bool ResultGet = false; ResultGet == false; )  // 防止重复
+
+            for (bool ResultGet = false; ResultGet == false;)  // 防止重复
             {
                 resultNum = random.Next(0, MaxNum);
-                if ( CommonGachaGetIds.Count == MaxNum )
+                if (CommonGachaGetIds.Count == MaxNum)
                 {
                     CommonGachaGetIds.Clear();
                     return NameList.Name[MaxNum];
@@ -102,8 +101,6 @@ namespace DrawLosAssistantWinUI3.Models
 
             return NameList.Name[resultNum];
         }
-
-
 
         public static string RandomLevel()
         {

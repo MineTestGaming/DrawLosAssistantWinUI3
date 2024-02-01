@@ -2,17 +2,16 @@
 <Page
     x:Class="DrawLosAssistantWinUI3.BlankPage1"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:DrawLosAssistantWinUI3"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <StackPanel>
-        <TextBlock Name="Title" Text="Debug用"/>
-        <Button Name="CommonResult" Content="白卡" Click="CommonResult_Click"/>
-        <Button Name="RareResult" Content="金卡" Click="RareResult_Click"/>
-        <Button Name="SuperRareResult" Content="虹卡" Click="SuperRareResult_Click"/>
+        <TextBlock Name="Title" Text="Debug用" />
+        <Button Name="CommonResult" Content="白卡" Click="CommonResult_Click" />
+        <Button Name="RareResult" Content="金卡" Click="RareResult_Click" />
+        <Button Name="SuperRareResult" Content="虹卡" Click="SuperRareResult_Click" />
     </StackPanel>
 </Page>

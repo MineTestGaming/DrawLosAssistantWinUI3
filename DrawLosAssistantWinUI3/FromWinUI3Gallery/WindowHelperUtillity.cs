@@ -8,11 +8,11 @@ using WinRT.Interop;
 
 namespace DrawLosAssistantWinUI3.FromWinUI3Gallery
 {
-    class WindowHelperUtillity
+    internal class WindowHelperUtillity
     {
         public class WindowHelper
         {
-            static public Window CreateWindow()
+            public static Window CreateWindow()
             {
                 Window newWindow = new Window
                 {
@@ -22,22 +22,23 @@ namespace DrawLosAssistantWinUI3.FromWinUI3Gallery
                 return newWindow;
             }
 
-            static public void TrackWindow(Window window)
+            public static void TrackWindow(Window window)
             {
-                window.Closed += (sender, args) => {
+                window.Closed += (sender, args) =>
+                {
                     _activeWindows.Remove(window);
                 };
                 _activeWindows.Add(window);
             }
 
-            static public AppWindow GetAppWindow(Window window)
+            public static AppWindow GetAppWindow(Window window)
             {
                 IntPtr hWnd = WindowNative.GetWindowHandle(window);
                 WindowId wndId = Win32Interop.GetWindowIdFromWindow(hWnd);
                 return AppWindow.GetFromWindowId(wndId);
             }
 
-            static public Window GetWindowForElement(UIElement element)
+            public static Window GetWindowForElement(UIElement element)
             {
                 if (element.XamlRoot != null)
                 {
@@ -52,9 +53,10 @@ namespace DrawLosAssistantWinUI3.FromWinUI3Gallery
                 return null;
             }
 
-            static public List<Window> ActiveWindows { get { return _activeWindows; } }
+            public static List<Window> ActiveWindows
+            { get { return _activeWindows; } }
 
-            static private List<Window> _activeWindows = new List<Window>();
+            private static List<Window> _activeWindows = new List<Window>();
         }
     }
 }

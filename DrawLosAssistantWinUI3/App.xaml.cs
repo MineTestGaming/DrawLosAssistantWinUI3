@@ -29,7 +29,6 @@ namespace DrawLosAssistantWinUI3
             m_window.Activate();
         }
 
-
         public static Window? m_window { get; private set; }
     }
 }
