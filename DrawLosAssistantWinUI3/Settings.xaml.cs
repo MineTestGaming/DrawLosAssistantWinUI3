@@ -17,9 +17,18 @@ namespace DrawLosAssistantWinUI3
     /// </summary>
     public sealed partial class Settings : Page
     {
+        nint hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
+
         public Settings()
         {
             this.InitializeComponent();
+            string Audiotype = ApplicationData.Current.LocalSettings.Values["AudioType"].ToString();
+            ShowDevInfo(Audiotype);
+            if (Audiotype == "External")
+            {
+                AudioType.IsOn = true;
+            }
+
         }
 
         private void Clear_Click(object sender, RoutedEventArgs e)
@@ -78,7 +87,6 @@ namespace DrawLosAssistantWinUI3
             ExportLocationPicker.SuggestedFileName = "NameList";
             ExportLocationPicker.FileTypeChoices.Add("JsonÎÄ¼þ", new List<string>() { ".json" });
             var localSettings = ApplicationData.Current.LocalSettings;
-            nint hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
             WinRT.Interop.InitializeWithWindow.Initialize(ExportLocationPicker, hWnd);
 
             StorageFile exportFile = await ExportLocationPicker.PickSaveFileAsync();
@@ -117,7 +125,6 @@ namespace DrawLosAssistantWinUI3
             var ImportLocationPicker = new Windows.Storage.Pickers.FileOpenPicker();
             ImportLocationPicker.FileTypeFilter.Add(".json");
             var localSettings = ApplicationData.Current.LocalSettings;
-            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
             WinRT.Interop.InitializeWithWindow.Initialize(ImportLocationPicker, hWnd);
 
             StorageFile file = await ImportLocationPicker.PickSingleFileAsync();
@@ -141,7 +148,6 @@ namespace DrawLosAssistantWinUI3
             ExportLocationPicker.SuggestedFileName = "RareNameList";
             ExportLocationPicker.FileTypeChoices.Add("Json Files", new List<string>() { ".json" });
             var localSettings = ApplicationData.Current.LocalSettings;
-            nint hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
             WinRT.Interop.InitializeWithWindow.Initialize(ExportLocationPicker, hWnd);
 
             StorageFile exportFile = await ExportLocationPicker.PickSaveFileAsync();
@@ -180,7 +186,7 @@ namespace DrawLosAssistantWinUI3
             var ImportLocationPicker = new Windows.Storage.Pickers.FileOpenPicker();
             ImportLocationPicker.FileTypeFilter.Add(".json");
             var localSettings = ApplicationData.Current.LocalSettings;
-            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
+
             WinRT.Interop.InitializeWithWindow.Initialize(ImportLocationPicker, hWnd);
 
             StorageFile file = await ImportLocationPicker.PickSingleFileAsync();
@@ -204,7 +210,6 @@ namespace DrawLosAssistantWinUI3
             ExportLocationPicker.SuggestedFileName = "SuperRareNameList";
             ExportLocationPicker.FileTypeChoices.Add("Json Files", new List<string>() { ".json" });
             var localSettings = ApplicationData.Current.LocalSettings;
-            nint hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
             WinRT.Interop.InitializeWithWindow.Initialize(ExportLocationPicker, hWnd);
 
             StorageFile exportFile = await ExportLocationPicker.PickSaveFileAsync();
@@ -248,9 +253,19 @@ namespace DrawLosAssistantWinUI3
             SaveStatus.IsOpen = false;
         }
 
-        private void AudioType_Tapped(object sender, Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
 
+
+        private void AudioType_Toggled(object sender, RoutedEventArgs e)
+        {
+            var localSettings = ApplicationData.Current.LocalSettings;
+            if (AudioType.IsOn)
+            {
+                localSettings.Values["AudioType"] = "External";
+            }
+            else
+            {
+                localSettings.Values["AudioType"] = "Internal";
+            }
         }
     }
 }

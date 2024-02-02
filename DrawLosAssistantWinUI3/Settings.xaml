@@ -73,7 +73,7 @@
                     <Button x:Name="ExportSR" Content="导出" Click="ExportSR_Click" />
                     <TextBlock Text="抽卡视频及背景音频" FontSize="36"/>
                     <TextBlock Text="音频选项" FontSize="24"/>
-                    <ToggleSwitch x:Name="AudioType" OffContent="视频内嵌音频" OnContent="外置音频" Tapped="AudioType_Tapped"/>
+                    <ToggleSwitch x:Name="AudioType" OffContent="视频内嵌音频" OnContent="外置音频" Toggled="AudioType_Toggled" />
                     <TextBlock Text="重置此应用" FontSize="36" />
                     <Button x:Name="Clear" Content="重置" Click="Clear_Click" />
                 </StackPanel>

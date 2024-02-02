@@ -2,6 +2,7 @@ using DrawLosAssistantWinUI3.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.Linq;
+using Windows.Storage;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -18,6 +19,12 @@ namespace DrawLosAssistantWinUI3
             this.InitializeComponent();
             MainFrame.Navigate(typeof(Homepage));
             NameList.Load();
+
+            // 初始化部分设置
+            if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("AudioType")) 
+            {
+                ApplicationData.Current.LocalSettings.Values["AudioType"] = "External";
+            }
         }
 
         private void Nav_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)

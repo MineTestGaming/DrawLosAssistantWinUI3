@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -23,7 +24,22 @@ namespace DrawLosAssistantWinUI3.ResultPage
             dispatcherQueue = DispatcherQueue.GetForCurrentThread();
             GachaLoading.MediaPlayer.MediaEnded += GachaVideoPlayer_MediaEnded;
             GachaLoading.MediaPlayer.AudioCategory = Windows.Media.Playback.MediaPlayerAudioCategory.Other;
-            GachaLoading.MediaPlayer.Volume = 0;
+            string AudioType = ApplicationData.Current.LocalSettings.Values["AudioType"].ToString();
+            switch (AudioType)
+            {
+                case "External":
+                    GachaLoading.MediaPlayer.Volume = 0;
+                    BGM.MediaPlayer.Play();
+                    Mute.Visibility = Visibility.Visible;
+                    break;
+
+                case "Internal":
+                    GachaLoading.MediaPlayer.Volume = 100;
+                    BGM.MediaPlayer.AutoPlay = false;
+                    BGM.MediaPlayer.Pause(); 
+                    Mute.Visibility = Visibility.Collapsed;
+                    break;
+            }
             // MediaPlayerDetection();
         }
 
