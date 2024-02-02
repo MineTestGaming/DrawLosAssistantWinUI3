@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Threading.Tasks;
+using Windows.Media.Core;
 using Windows.Storage;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -24,7 +25,10 @@ namespace DrawLosAssistantWinUI3.ResultPage
             dispatcherQueue = DispatcherQueue.GetForCurrentThread();
             GachaLoading.MediaPlayer.MediaEnded += GachaVideoPlayer_MediaEnded;
             GachaLoading.MediaPlayer.AudioCategory = Windows.Media.Playback.MediaPlayerAudioCategory.Other;
-            string AudioType = ApplicationData.Current.LocalSettings.Values["AudioType"].ToString();
+
+            // Customization
+            var localSettings = ApplicationData.Current.LocalSettings;
+            string AudioType = localSettings.Values["AudioType"].ToString();
             switch (AudioType)
             {
                 case "External":
@@ -32,13 +36,17 @@ namespace DrawLosAssistantWinUI3.ResultPage
                     BGM.MediaPlayer.Play();
                     Mute.Visibility = Visibility.Visible;
                     break;
+
                 case "Internal":
                     GachaLoading.MediaPlayer.Volume = 100;
                     BGM.MediaPlayer.AutoPlay = false;
                     BGM.MediaPlayer.Pause();
                     Mute.Visibility = Visibility.Collapsed;
                     break;
-
+            }
+            if (localSettings.Values.ContainsKey("RareVideoPath"))
+            {
+                GachaLoading.MediaPlayer.Source = MediaSource.CreateFromUri(new Uri(localSettings.Values["RareVideoPath"].ToString()));
             }
         }
 

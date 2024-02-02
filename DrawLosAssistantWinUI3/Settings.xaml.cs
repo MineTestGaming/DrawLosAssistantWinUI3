@@ -17,23 +17,22 @@ namespace DrawLosAssistantWinUI3
     /// </summary>
     public sealed partial class Settings : Page
     {
-        nint hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
+        private nint hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
 
         public Settings()
         {
             this.InitializeComponent();
             string Audiotype = ApplicationData.Current.LocalSettings.Values["AudioType"].ToString();
-            ShowDevInfo(Audiotype);
             if (Audiotype == "External")
             {
                 AudioType.IsOn = true;
             }
-
         }
 
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
-            NameList.InitializeList();
+            ApplicationData.Current.LocalSettings.Values.Clear();
+            App.Current.Exit();
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
@@ -253,8 +252,6 @@ namespace DrawLosAssistantWinUI3
             SaveStatus.IsOpen = false;
         }
 
-
-
         private void AudioType_Toggled(object sender, RoutedEventArgs e)
         {
             var localSettings = ApplicationData.Current.LocalSettings;
@@ -265,6 +262,49 @@ namespace DrawLosAssistantWinUI3
             else
             {
                 localSettings.Values["AudioType"] = "Internal";
+            }
+        }
+
+        private async void NormalVideoSel_Click(object sender, RoutedEventArgs e)
+        {
+            var localSettings = ApplicationData.Current.LocalSettings;
+            var FileSelector = new Windows.Storage.Pickers.FileOpenPicker();
+            WinRT.Interop.InitializeWithWindow.Initialize(FileSelector, hWnd);
+            FileSelector.FileTypeFilter.Add("*");
+
+            StorageFile storageFile = await FileSelector.PickSingleFileAsync();
+
+            if (storageFile != null)
+            {
+                localSettings.Values["NormalVideoPath"] = storageFile.Path;
+            }
+        }
+
+        private async void RareVideoSel_Click(object sender, RoutedEventArgs e)
+        {
+            var localSettings = ApplicationData.Current.LocalSettings;
+            var FileSelector = new Windows.Storage.Pickers.FileOpenPicker();
+            WinRT.Interop.InitializeWithWindow.Initialize(FileSelector, hWnd);
+            FileSelector.FileTypeFilter.Add("*");
+            StorageFile storageFile = await FileSelector.PickSingleFileAsync();
+
+            if (storageFile != null)
+            {
+                localSettings.Values["RareVideoPath"] = storageFile.Path;
+            }
+        }
+
+        private async void SRVideoSel_Click(object sender, RoutedEventArgs e)
+        {
+            var localSettings = ApplicationData.Current.LocalSettings;
+            var FileSelector = new Windows.Storage.Pickers.FileOpenPicker();
+            WinRT.Interop.InitializeWithWindow.Initialize(FileSelector, hWnd);
+            FileSelector.FileTypeFilter.Add("*");
+            StorageFile storageFile = await FileSelector.PickSingleFileAsync();
+
+            if (storageFile != null)
+            {
+                localSettings.Values["SuperRareVideoPath"] = storageFile.Path;
             }
         }
     }

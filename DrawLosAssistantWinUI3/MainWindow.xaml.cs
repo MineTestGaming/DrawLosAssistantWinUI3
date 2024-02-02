@@ -21,7 +21,7 @@ namespace DrawLosAssistantWinUI3
             NameList.Load();
 
             // 初始化部分设置
-            if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("AudioType")) 
+            if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("AudioType"))
             {
                 ApplicationData.Current.LocalSettings.Values["AudioType"] = "External";
             }
