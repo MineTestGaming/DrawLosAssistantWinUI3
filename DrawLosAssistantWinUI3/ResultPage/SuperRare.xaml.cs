@@ -33,6 +33,10 @@ namespace DrawLosAssistantWinUI3.ResultPage
             switch (AudioType)
             {
                 case "External":
+                    if (localSettings.Values.ContainsKey("AudioPath"))
+                    {
+                        BGM.MediaPlayer.Source = MediaSource.CreateFromUri(new Uri(localSettings.Values["AudioPath"].ToString()));
+                    }
                     GachaLoading.MediaPlayer.Volume = 0;
                     BGM.MediaPlayer.Play();
                     Mute.Visibility = Visibility.Visible;

@@ -26,12 +26,18 @@ namespace DrawLosAssistantWinUI3
             if (Audiotype == "External")
             {
                 AudioType.IsOn = true;
+                CustomizeAudio.Visibility = Visibility.Visible;
             }
         }
 
-        private void Clear_Click(object sender, RoutedEventArgs e)
+        private async void Clear_Click(object sender, RoutedEventArgs e)
         {
             ApplicationData.Current.LocalSettings.Values.Clear();
+            SaveStatus.Severity = InfoBarSeverity.Warning;
+            SaveStatus.Title = "应用已重置";
+            SaveStatus.Content = "将在1s后关闭";
+            SaveStatus.IsOpen = true;
+            await Task.Delay(1000);
             App.Current.Exit();
         }
 
@@ -258,10 +264,12 @@ namespace DrawLosAssistantWinUI3
             if (AudioType.IsOn)
             {
                 localSettings.Values["AudioType"] = "External";
+                CustomizeAudio.Visibility = Visibility.Visible;
             }
             else
             {
                 localSettings.Values["AudioType"] = "Internal";
+                CustomizeAudio.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -305,6 +313,20 @@ namespace DrawLosAssistantWinUI3
             if (storageFile != null)
             {
                 localSettings.Values["SuperRareVideoPath"] = storageFile.Path;
+            }
+        }
+
+        private async void AudioLocation_Click(object sender, RoutedEventArgs e)
+        {
+            var localSettings = ApplicationData.Current.LocalSettings;
+            var filePicker = new Windows.Storage.Pickers.FileOpenPicker();
+            WinRT.Interop.InitializeWithWindow.Initialize(filePicker, hWnd);
+            filePicker.FileTypeFilter.Add("*");
+            StorageFile storageFile = await filePicker.PickSingleFileAsync();
+
+            if (storageFile != null) 
+            {
+                localSettings.Values["AudioPath"] = storageFile.Path;
             }
         }
     }
