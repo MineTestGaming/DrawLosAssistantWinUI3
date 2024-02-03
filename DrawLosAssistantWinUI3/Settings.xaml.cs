@@ -1,8 +1,11 @@
 using DrawLosAssistantWinUI3.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Provider;
@@ -18,7 +21,6 @@ namespace DrawLosAssistantWinUI3
     public sealed partial class Settings : Page
     {
         private nint hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
-
         public Settings()
         {
             this.InitializeComponent();
@@ -68,7 +70,6 @@ namespace DrawLosAssistantWinUI3
             ImportLocationPicker.FileTypeFilter.Add(".json");
 
             var localSettings = ApplicationData.Current.LocalSettings;
-            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
             WinRT.Interop.InitializeWithWindow.Initialize(ImportLocationPicker, hWnd);
 
             StorageFile file = await ImportLocationPicker.PickSingleFileAsync();
@@ -328,6 +329,99 @@ namespace DrawLosAssistantWinUI3
             {
                 localSettings.Values["AudioPath"] = storageFile.Path;
             }
+        }
+
+        private async void ImportFromTxt_Click(object sender, RoutedEventArgs e)
+        {
+            var localSettings = ApplicationData.Current.LocalSettings;
+            var filePicker = new Windows.Storage.Pickers.FileOpenPicker();
+            WinRT.Interop.InitializeWithWindow.Initialize(filePicker, hWnd);
+            filePicker.FileTypeFilter.Add(".txt");
+            StorageFile txt = await filePicker.PickSingleFileAsync();
+            Dictionary<int, string> imports = new Dictionary<int, string>();
+            int currentLine = 0;
+
+            if (txt != null)
+            {
+                StreamReader reader = new StreamReader(txt.Path);
+                string line;
+
+                while ((line = reader.ReadLine()) != null)
+                {
+                    imports.Add(currentLine, line);
+                    currentLine++;
+                }
+                reader.Close();
+                localSettings.Values["NameList"] = JsonConvert.SerializeObject(imports);
+                SaveStatus.Severity = InfoBarSeverity.Success;
+                SaveStatus.Title = "导入成功";
+                SaveStatus.Content = "普通名单导入成功";
+                SaveStatus.IsOpen = true;
+                await Task.Delay(3000);
+                SaveStatus.IsOpen = false;
+            }
+        }
+
+        private async void RareImportFromTxt_Click(object sender, RoutedEventArgs e)
+        {
+            var localSettings = ApplicationData.Current.LocalSettings;
+            var filePicker = new Windows.Storage.Pickers.FileOpenPicker();
+            WinRT.Interop.InitializeWithWindow.Initialize(filePicker, hWnd);
+            filePicker.FileTypeFilter.Add(".txt");
+            StorageFile txt = await filePicker.PickSingleFileAsync();
+            Dictionary<int, string> imports = new Dictionary<int, string>();
+            int currentLine = 0;
+
+            if (txt != null)
+            {
+                StreamReader reader = new StreamReader(txt.Path);
+                string line;
+
+                while ((line = reader.ReadLine()) != null)
+                {
+                    imports.Add(currentLine, line);
+                    currentLine++;
+                }
+                reader.Close();
+                localSettings.Values["RareList"] = JsonConvert.SerializeObject(imports);
+                SaveStatus.Title = "导入成功";
+                SaveStatus.Content = "Rare名单导入成功";
+                SaveStatus.IsOpen = true;
+                await Task.Delay(3000);
+                SaveStatus.IsOpen = false;
+            }
+
+        }
+
+        private async void SuperRareImportFromTxt_Click(object sender, RoutedEventArgs e)
+        {
+            var localSettings = ApplicationData.Current.LocalSettings;
+            var filePicker = new Windows.Storage.Pickers.FileOpenPicker();
+            WinRT.Interop.InitializeWithWindow.Initialize(filePicker, hWnd);
+            filePicker.FileTypeFilter.Add(".txt");
+            StorageFile txt = await filePicker.PickSingleFileAsync();
+            Dictionary<int, string> imports = new Dictionary<int, string>();
+            int currentLine = 0;
+
+            if (txt != null)
+            {
+                StreamReader reader = new StreamReader(txt.Path);
+                string line;
+
+                while ((line = reader.ReadLine()) != null)
+                {
+                    imports.Add(currentLine, line);
+                    currentLine++;
+                }
+                reader.Close();
+                localSettings.Values["SuperRareList"] = JsonConvert.SerializeObject(imports);
+                SaveStatus.Title = "导入成功";
+                SaveStatus.Content = "SuperRare名单导入成功";
+                SaveStatus.IsOpen = true;
+                await Task.Delay(3000);
+                SaveStatus.IsOpen = false;
+            }
+
         }
     }
 }
