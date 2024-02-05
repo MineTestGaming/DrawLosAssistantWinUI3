@@ -25,6 +25,17 @@ namespace DrawLosAssistantWinUI3
             {
                 ApplicationData.Current.LocalSettings.Values["AudioType"] = "External";
             }
+
+            if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("IsSettingsVisible"))
+            {
+                ApplicationData.Current.LocalSettings.Values["IsSettingsVisible"] = "1";
+            }
+            else if (ApplicationData.Current.LocalSettings.Values["IsSettingsVisible"].ToString() == "0")
+            {
+                this.Nav.IsSettingsVisible = false;
+            }
+
+
         }
 
         private void Nav_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)

@@ -19,6 +19,7 @@
     <None Remove="BlankPage1.xaml" />
     <None Remove="Gacha.xaml" />
     <None Remove="Homepage.xaml" />
+    <None Remove="LockdownConfirm.xaml" />
     <None Remove="ResultPage\Common.xaml" />
     <None Remove="ResultPage\Rare.xaml" />
     <None Remove="ResultPage\SuperRare.xaml" />
@@ -51,6 +52,12 @@
     <Content Update="Assets\Rare.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="LockdownConfirm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>

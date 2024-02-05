@@ -4,7 +4,6 @@ using Microsoft.UI.Xaml.Controls;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -21,6 +20,7 @@ namespace DrawLosAssistantWinUI3
     public sealed partial class Settings : Page
     {
         private nint hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
+
         public Settings()
         {
             this.InitializeComponent();
@@ -30,17 +30,6 @@ namespace DrawLosAssistantWinUI3
                 AudioType.IsOn = true;
                 CustomizeAudio.Visibility = Visibility.Visible;
             }
-        }
-
-        private async void Clear_Click(object sender, RoutedEventArgs e)
-        {
-            ApplicationData.Current.LocalSettings.Values.Clear();
-            SaveStatus.Severity = InfoBarSeverity.Warning;
-            SaveStatus.Title = "应用已重置";
-            SaveStatus.Content = "将在1s后关闭";
-            SaveStatus.IsOpen = true;
-            await Task.Delay(1000);
-            App.Current.Exit();
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
@@ -64,27 +53,45 @@ namespace DrawLosAssistantWinUI3
             InputSR.Text = "";
         }
 
-        private async void Import_Click(object sender, RoutedEventArgs e)
+        private async void AudioLocation_Click(object sender, RoutedEventArgs e)
         {
-            var ImportLocationPicker = new Windows.Storage.Pickers.FileOpenPicker();
-            ImportLocationPicker.FileTypeFilter.Add(".json");
-
             var localSettings = ApplicationData.Current.LocalSettings;
-            WinRT.Interop.InitializeWithWindow.Initialize(ImportLocationPicker, hWnd);
+            var filePicker = new Windows.Storage.Pickers.FileOpenPicker();
+            WinRT.Interop.InitializeWithWindow.Initialize(filePicker, hWnd);
+            filePicker.FileTypeFilter.Add("*");
+            StorageFile storageFile = await filePicker.PickSingleFileAsync();
 
-            StorageFile file = await ImportLocationPicker.PickSingleFileAsync();
-
-            if (file != null)
+            if (storageFile != null)
             {
-                string ImportContent = await FileIO.ReadTextAsync(file);
-                localSettings.Values["NameList"] = ImportContent;
-                SaveStatus.Severity = InfoBarSeverity.Success;
-                SaveStatus.Title = "导入成功";
-                SaveStatus.Content = "普通名单导入成功";
-                SaveStatus.IsOpen = true;
-                await Task.Delay(3000);
-                SaveStatus.IsOpen = false;
+                localSettings.Values["AudioPath"] = storageFile.Path;
             }
+        }
+
+        private void AudioType_Toggled(object sender, RoutedEventArgs e)
+        {
+            var localSettings = ApplicationData.Current.LocalSettings;
+            if (AudioType.IsOn)
+            {
+                localSettings.Values["AudioType"] = "External";
+                CustomizeAudio.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                localSettings.Values["AudioType"] = "Internal";
+                CustomizeAudio.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private async void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            ApplicationData.Current.LocalSettings.Values.Clear();
+            SaveStatus.Severity = InfoBarSeverity.Warning;
+            SaveStatus.Title = "应用已重置";
+            SaveStatus.Content = "将在1s后关闭";
+            
+            SaveStatus.IsOpen = true; 
+            await Task.Delay(1000);
+            App.Current.Exit();
         }
 
         private async void Export_Click(object sender, RoutedEventArgs e)
@@ -110,8 +117,10 @@ namespace DrawLosAssistantWinUI3
                     SaveStatus.Title = "保存成功";
                     SaveStatus.Content = "普通名单保存成功";
                     SaveStatus.IsOpen = true;
+
                     await Task.Delay(3000);
                     SaveStatus.IsOpen = false;
+
                 }
                 if (updateStatus == FileUpdateStatus.Failed)
                 {
@@ -119,32 +128,12 @@ namespace DrawLosAssistantWinUI3
                     SaveStatus.Severity = InfoBarSeverity.Error;
                     SaveStatus.Title = "保存失败";
                     SaveStatus.Content = "请检查是否有对应权限，文件是否被占用等";
+
                     SaveStatus.IsOpen = true;
                     await Task.Delay(3000);
-                    SaveStatus.IsOpen = false;
+
+                    SaveStatus.IsOpen = true;
                 }
-            }
-        }
-
-        private async void ImportRare_Click(object sender, RoutedEventArgs e)
-        {
-            var ImportLocationPicker = new Windows.Storage.Pickers.FileOpenPicker();
-            ImportLocationPicker.FileTypeFilter.Add(".json");
-            var localSettings = ApplicationData.Current.LocalSettings;
-            WinRT.Interop.InitializeWithWindow.Initialize(ImportLocationPicker, hWnd);
-
-            StorageFile file = await ImportLocationPicker.PickSingleFileAsync();
-
-            if (file != null)
-            {
-                string ImportContent = await FileIO.ReadTextAsync(file);
-                localSettings.Values["RareList"] = ImportContent;
-                SaveStatus.Severity = InfoBarSeverity.Success;
-                SaveStatus.Title = "导入成功";
-                SaveStatus.Content = "Rare名单导入成功";
-                SaveStatus.IsOpen = true;
-                await Task.Delay(3000);
-                SaveStatus.IsOpen = false;
             }
         }
 
@@ -170,9 +159,11 @@ namespace DrawLosAssistantWinUI3
                     SaveStatus.Severity = InfoBarSeverity.Success;
                     SaveStatus.Title = "保存成功";
                     SaveStatus.Content = "R名单保存成功";
+
                     SaveStatus.IsOpen = true;
                     await Task.Delay(3000);
-                    SaveStatus.IsOpen = false;
+
+                    SaveStatus.IsOpen = false; 
                 }
                 if (updateStatus == FileUpdateStatus.Failed)
                 {
@@ -180,33 +171,12 @@ namespace DrawLosAssistantWinUI3
                     SaveStatus.Severity = InfoBarSeverity.Error;
                     SaveStatus.Title = "保存失败";
                     SaveStatus.Content = "请检查是否有对应权限，文件是否被占用等";
+
                     SaveStatus.IsOpen = true;
                     await Task.Delay(3000);
-                    SaveStatus.IsOpen = false;
+
+                    SaveStatus.IsOpen = false; 
                 }
-            }
-        }
-
-        private async void ImportSuperRare_Click(object sender, RoutedEventArgs e)
-        {
-            var ImportLocationPicker = new Windows.Storage.Pickers.FileOpenPicker();
-            ImportLocationPicker.FileTypeFilter.Add(".json");
-            var localSettings = ApplicationData.Current.LocalSettings;
-
-            WinRT.Interop.InitializeWithWindow.Initialize(ImportLocationPicker, hWnd);
-
-            StorageFile file = await ImportLocationPicker.PickSingleFileAsync();
-
-            if (file != null)
-            {
-                string ImportContent = await FileIO.ReadTextAsync(file);
-                localSettings.Values["SuperRareList"] = ImportContent;
-                SaveStatus.Severity = InfoBarSeverity.Success;
-                SaveStatus.Title = "导入成功";
-                SaveStatus.Content = "SR名单导入成功";
-                SaveStatus.IsOpen = true;
-                await Task.Delay(3000);
-                SaveStatus.IsOpen = false;
             }
         }
 
@@ -232,8 +202,10 @@ namespace DrawLosAssistantWinUI3
                     SaveStatus.Severity = InfoBarSeverity.Success;
                     SaveStatus.Title = "保存成功";
                     SaveStatus.Content = "SR名单保存成功";
+
                     SaveStatus.IsOpen = true;
                     await Task.Delay(3000);
+
                     SaveStatus.IsOpen = false;
                 }
                 if (updateStatus == FileUpdateStatus.Failed)
@@ -242,92 +214,37 @@ namespace DrawLosAssistantWinUI3
                     SaveStatus.Severity = InfoBarSeverity.Error;
                     SaveStatus.Title = "保存失败";
                     SaveStatus.Content = "请检查是否有对应权限，文件是否被占用等";
+
                     SaveStatus.IsOpen = true;
                     await Task.Delay(3000);
+
                     SaveStatus.IsOpen = false;
                 }
             }
         }
 
-        private async void ShowDevInfo(string devInfo)
+        private async void Import_Click(object sender, RoutedEventArgs e)
         {
-            SaveStatus.Severity = InfoBarSeverity.Informational;
-            SaveStatus.Title = "Debug Info";
-            SaveStatus.Content = devInfo;
-            SaveStatus.IsOpen = true;
-            await Task.Delay(3000);
-            SaveStatus.IsOpen = false;
-        }
+            var ImportLocationPicker = new Windows.Storage.Pickers.FileOpenPicker();
+            ImportLocationPicker.FileTypeFilter.Add(".json");
 
-        private void AudioType_Toggled(object sender, RoutedEventArgs e)
-        {
             var localSettings = ApplicationData.Current.LocalSettings;
-            if (AudioType.IsOn)
+            WinRT.Interop.InitializeWithWindow.Initialize(ImportLocationPicker, hWnd);
+
+            StorageFile file = await ImportLocationPicker.PickSingleFileAsync();
+
+            if (file != null)
             {
-                localSettings.Values["AudioType"] = "External";
-                CustomizeAudio.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                localSettings.Values["AudioType"] = "Internal";
-                CustomizeAudio.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private async void NormalVideoSel_Click(object sender, RoutedEventArgs e)
-        {
-            var localSettings = ApplicationData.Current.LocalSettings;
-            var FileSelector = new Windows.Storage.Pickers.FileOpenPicker();
-            WinRT.Interop.InitializeWithWindow.Initialize(FileSelector, hWnd);
-            FileSelector.FileTypeFilter.Add("*");
-
-            StorageFile storageFile = await FileSelector.PickSingleFileAsync();
-
-            if (storageFile != null)
-            {
-                localSettings.Values["NormalVideoPath"] = storageFile.Path;
-            }
-        }
-
-        private async void RareVideoSel_Click(object sender, RoutedEventArgs e)
-        {
-            var localSettings = ApplicationData.Current.LocalSettings;
-            var FileSelector = new Windows.Storage.Pickers.FileOpenPicker();
-            WinRT.Interop.InitializeWithWindow.Initialize(FileSelector, hWnd);
-            FileSelector.FileTypeFilter.Add("*");
-            StorageFile storageFile = await FileSelector.PickSingleFileAsync();
-
-            if (storageFile != null)
-            {
-                localSettings.Values["RareVideoPath"] = storageFile.Path;
-            }
-        }
-
-        private async void SRVideoSel_Click(object sender, RoutedEventArgs e)
-        {
-            var localSettings = ApplicationData.Current.LocalSettings;
-            var FileSelector = new Windows.Storage.Pickers.FileOpenPicker();
-            WinRT.Interop.InitializeWithWindow.Initialize(FileSelector, hWnd);
-            FileSelector.FileTypeFilter.Add("*");
-            StorageFile storageFile = await FileSelector.PickSingleFileAsync();
-
-            if (storageFile != null)
-            {
-                localSettings.Values["SuperRareVideoPath"] = storageFile.Path;
-            }
-        }
-
-        private async void AudioLocation_Click(object sender, RoutedEventArgs e)
-        {
-            var localSettings = ApplicationData.Current.LocalSettings;
-            var filePicker = new Windows.Storage.Pickers.FileOpenPicker();
-            WinRT.Interop.InitializeWithWindow.Initialize(filePicker, hWnd);
-            filePicker.FileTypeFilter.Add("*");
-            StorageFile storageFile = await filePicker.PickSingleFileAsync();
-
-            if (storageFile != null) 
-            {
-                localSettings.Values["AudioPath"] = storageFile.Path;
+                string ImportContent = await FileIO.ReadTextAsync(file);
+                localSettings.Values["NameList"] = ImportContent;
+                SaveStatus.Severity = InfoBarSeverity.Success;
+                SaveStatus.Title = "导入成功";
+                SaveStatus.Content = "普通名单导入成功";
+                
+                SaveStatus.IsOpen = true;
+                await Task.Delay(3000);
+                
+                SaveStatus.IsOpen = false; 
             }
         }
 
@@ -356,9 +273,75 @@ namespace DrawLosAssistantWinUI3
                 SaveStatus.Severity = InfoBarSeverity.Success;
                 SaveStatus.Title = "导入成功";
                 SaveStatus.Content = "普通名单导入成功";
+                
+                SaveStatus.IsOpen = true; 
+                await Task.Delay(3000);
+                
+                SaveStatus.IsOpen = false; 
+            }
+        }
+
+        private async void ImportRare_Click(object sender, RoutedEventArgs e)
+        {
+            var ImportLocationPicker = new Windows.Storage.Pickers.FileOpenPicker();
+            ImportLocationPicker.FileTypeFilter.Add(".json");
+            var localSettings = ApplicationData.Current.LocalSettings;
+            WinRT.Interop.InitializeWithWindow.Initialize(ImportLocationPicker, hWnd);
+
+            StorageFile file = await ImportLocationPicker.PickSingleFileAsync();
+
+            if (file != null)
+            {
+                string ImportContent = await FileIO.ReadTextAsync(file);
+                localSettings.Values["RareList"] = ImportContent;
+                SaveStatus.Severity = InfoBarSeverity.Success;
+                SaveStatus.Title = "导入成功";
+                SaveStatus.Content = "Rare名单导入成功";
+                
                 SaveStatus.IsOpen = true;
                 await Task.Delay(3000);
+                
                 SaveStatus.IsOpen = false;
+            }
+        }
+
+        private async void ImportSuperRare_Click(object sender, RoutedEventArgs e)
+        {
+            var ImportLocationPicker = new Windows.Storage.Pickers.FileOpenPicker();
+            ImportLocationPicker.FileTypeFilter.Add(".json");
+            var localSettings = ApplicationData.Current.LocalSettings;
+
+            WinRT.Interop.InitializeWithWindow.Initialize(ImportLocationPicker, hWnd);
+
+            StorageFile file = await ImportLocationPicker.PickSingleFileAsync();
+
+            if (file != null)
+            {
+                string ImportContent = await FileIO.ReadTextAsync(file);
+                localSettings.Values["SuperRareList"] = ImportContent;
+                SaveStatus.Severity = InfoBarSeverity.Success;
+                SaveStatus.Title = "导入成功";
+                SaveStatus.Content = "SR名单导入成功";
+                
+                SaveStatus.IsOpen = true;
+                await Task.Delay(3000);
+                
+                SaveStatus.IsOpen = false; 
+            }
+        }
+
+        private async void NormalVideoSel_Click(object sender, RoutedEventArgs e)
+        {
+            var localSettings = ApplicationData.Current.LocalSettings;
+            var FileSelector = new Windows.Storage.Pickers.FileOpenPicker();
+            WinRT.Interop.InitializeWithWindow.Initialize(FileSelector, hWnd);
+            FileSelector.FileTypeFilter.Add("*");
+
+            StorageFile storageFile = await FileSelector.PickSingleFileAsync();
+
+            if (storageFile != null)
+            {
+                localSettings.Values["NormalVideoPath"] = storageFile.Path;
             }
         }
 
@@ -386,11 +369,52 @@ namespace DrawLosAssistantWinUI3
                 localSettings.Values["RareList"] = JsonConvert.SerializeObject(imports);
                 SaveStatus.Title = "导入成功";
                 SaveStatus.Content = "Rare名单导入成功";
-                SaveStatus.IsOpen = true;
+                
+                SaveStatus.IsOpen = true; 
                 await Task.Delay(3000);
+                
                 SaveStatus.IsOpen = false;
             }
+        }
 
+        private async void RareVideoSel_Click(object sender, RoutedEventArgs e)
+        {
+            var localSettings = ApplicationData.Current.LocalSettings;
+            var FileSelector = new Windows.Storage.Pickers.FileOpenPicker();
+            WinRT.Interop.InitializeWithWindow.Initialize(FileSelector, hWnd);
+            FileSelector.FileTypeFilter.Add("*");
+            StorageFile storageFile = await FileSelector.PickSingleFileAsync();
+
+            if (storageFile != null)
+            {
+                localSettings.Values["RareVideoPath"] = storageFile.Path;
+            }
+        }
+
+        private async void ShowDevInfo(string devInfo)
+        {
+            SaveStatus.Severity = InfoBarSeverity.Informational;
+            SaveStatus.Title = "Debug Info";
+            SaveStatus.Content = devInfo;
+            
+            SaveStatus.IsOpen = true;
+            await Task.Delay(3000);
+            
+            SaveStatus.IsOpen = false;
+        }
+
+        private async void SRVideoSel_Click(object sender, RoutedEventArgs e)
+        {
+            var localSettings = ApplicationData.Current.LocalSettings;
+            var FileSelector = new Windows.Storage.Pickers.FileOpenPicker();
+            WinRT.Interop.InitializeWithWindow.Initialize(FileSelector, hWnd);
+            FileSelector.FileTypeFilter.Add("*");
+            StorageFile storageFile = await FileSelector.PickSingleFileAsync();
+
+            if (storageFile != null)
+            {
+                localSettings.Values["SuperRareVideoPath"] = storageFile.Path;
+            }
         }
 
         private async void SuperRareImportFromTxt_Click(object sender, RoutedEventArgs e)
@@ -417,11 +441,21 @@ namespace DrawLosAssistantWinUI3
                 localSettings.Values["SuperRareList"] = JsonConvert.SerializeObject(imports);
                 SaveStatus.Title = "导入成功";
                 SaveStatus.Content = "SuperRare名单导入成功";
-                SaveStatus.IsOpen = true;
-                await Task.Delay(3000);
-                SaveStatus.IsOpen = false;
-            }
 
+                SaveStatus.IsOpen = true; 
+                await Task.Delay(3000);
+
+                SaveStatus.IsOpen = false; 
+            }
+        }
+
+
+
+        private async void Lockdown_Click(object sender, RoutedEventArgs e)
+        {
+            LockdownConfirm confirm = new LockdownConfirm();
+            confirm.XamlRoot = this.XamlRoot;
+            await confirm.ShowAsync();
         }
     }
 }

@@ -9,14 +9,14 @@
 
   <Identity
     Name="DrawLotsAssistant"
-    Publisher="CN=sutao"
+    Publisher="CN=MineTestGaming"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="8f7691c7-7605-45be-bdd4-e21fd9330e24" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>DrawLosAssistantWinUI3 (Package)</DisplayName>
-    <PublisherDisplayName>sutao</PublisherDisplayName>
+    <PublisherDisplayName>MineTestGaming</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
 
