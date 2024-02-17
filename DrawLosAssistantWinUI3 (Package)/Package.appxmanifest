@@ -10,7 +10,7 @@
   <Identity
     Name="DrawLotsAssistant"
     Publisher="CN=MineTestGaming"
-    Version="1.1.0.0" />
+    Version="1.1.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="8f7691c7-7605-45be-bdd4-e21fd9330e24" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
