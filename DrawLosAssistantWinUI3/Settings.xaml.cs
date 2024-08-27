@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Controls;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -29,6 +30,17 @@ namespace DrawLosAssistantWinUI3
             {
                 AudioType.IsOn = true;
                 CustomizeAudio.Visibility = Visibility.Visible;
+            }
+            if (ApplicationData.Current.LocalSettings.Values["IsRareEnabled"].ToString() == "True")
+            {
+                RareToggle.IsOn = true;
+
+            }
+
+            if (ApplicationData.Current.LocalSettings.Values["IsSuperRareEnabled"].ToString() == "True")
+            {
+
+                SuperRareToggle.IsOn = true;
             }
         }
 
@@ -456,6 +468,16 @@ namespace DrawLosAssistantWinUI3
             LockdownConfirm confirm = new LockdownConfirm();
             confirm.XamlRoot = this.XamlRoot;
             await confirm.ShowAsync();
+        }
+
+        private void RareToggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            ApplicationData.Current.LocalSettings.Values["IsRareEnabled"] = RareToggle.IsOn;
+        }
+
+        private void SuperRareToggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            ApplicationData.Current.LocalSettings.Values["IsSuperRareEnabled"] = SuperRareToggle.IsOn;
         }
     }
 }

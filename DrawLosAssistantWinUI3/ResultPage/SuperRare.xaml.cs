@@ -22,6 +22,7 @@ namespace DrawLosAssistantWinUI3.ResultPage
         public SuperRare()
         {
             this.InitializeComponent();
+
             dispatcherQueue = DispatcherQueue.GetForCurrentThread();
             GachaLoading.MediaPlayer.MediaEnded += GachaVideoPlayer_MediaEnded;
             GachaLoading.MediaPlayer.AudioCategory = Windows.Media.Playback.MediaPlayerAudioCategory.Other;
@@ -109,6 +110,14 @@ namespace DrawLosAssistantWinUI3.ResultPage
         private void Skip_Click(object sender, RoutedEventArgs e)
         {
             GachaLoading.MediaPlayer.Position = TimeSpan.MaxValue;
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!(ApplicationData.Current.LocalSettings.Values["IsSuperRareEnabled"].ToString() == "True"))
+            {
+                this.Frame.Navigate(typeof(Common));
+            }
         }
     }
 }

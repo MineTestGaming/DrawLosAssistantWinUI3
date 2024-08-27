@@ -35,6 +35,15 @@ namespace DrawLosAssistantWinUI3
                 this.Nav.IsSettingsVisible = false;
             }
 
+            if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("IsRareEnabled"))
+            {
+                ApplicationData.Current.LocalSettings.Values["IsRareEnabled"] = true;
+            }
+            if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("IsSuperRareEnabled"))
+            {
+                ApplicationData.Current.LocalSettings.Values["IsSuperRareEnabled"] = true;
+            }
+
 
         }
 
@@ -69,6 +78,9 @@ namespace DrawLosAssistantWinUI3
 
         private void Window_Activated(object sender, WindowActivatedEventArgs args)
         {
+#if DEBUG
+            DebugOption.Visibility = Visibility.Visible;
+#endif
             Nav.SelectedItem = Nav.MenuItems.OfType<Microsoft.UI.Xaml.Controls.NavigationViewItem>().First();
         }
     }
