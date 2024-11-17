@@ -5,9 +5,9 @@ namespace DrawLosAssistantWinUI3.Models
 {
     public class NameList
     {
-        public static Dictionary<int, string> Name = new Dictionary<int, string>();
-        public static Dictionary<int, string> RareList = new Dictionary<int, string>();
-        public static Dictionary<int, string> SuperRareList = new Dictionary<int, string>();
+        public static List<string> Name = new List<string>();
+        public static List<string> RareList = new List<string>();
+        public static List<string> SuperRareList = new List<string>();
 
         public static void InitializeList()
         {
@@ -20,12 +20,12 @@ namespace DrawLosAssistantWinUI3.Models
         {
             // Normal List
             Name.Clear();
-            Name.Add(Name.Count, "茅森月歌");
-            Name.Add(Name.Count, "和泉由希");
-            Name.Add(Name.Count, "逢川惠");
-            Name.Add(Name.Count, "東城司");
-            Name.Add(Name.Count, "朝倉可憐");
-            Name.Add(Name.Count, "國見玉");
+            Name.Add("茅森月歌");
+            Name.Add("和泉由希");
+            Name.Add("逢川惠");
+            Name.Add("東城司");
+            Name.Add("朝倉可憐");
+            Name.Add("國見玉");
             Save("Normal");
         }
 
@@ -33,7 +33,7 @@ namespace DrawLosAssistantWinUI3.Models
         {
             // Rare List
             RareList.Clear();
-            RareList.Add(RareList.Count, "ペコリム");
+            RareList.Add("ペコリム");
 
             Save("Rare");
         }
@@ -42,9 +42,9 @@ namespace DrawLosAssistantWinUI3.Models
         {
             // Normal List
             SuperRareList.Clear();
-            SuperRareList.Add(SuperRareList.Count, "手塚咲");
-            SuperRareList.Add(SuperRareList.Count, "七瀨七海");
-            SuperRareList.Add(SuperRareList.Count, "淺見真紀子");
+            SuperRareList.Add("手塚咲");
+            SuperRareList.Add("七瀨七海");
+            SuperRareList.Add("淺見真紀子");
             Save("Super Rare");
         }
 
@@ -85,7 +85,7 @@ namespace DrawLosAssistantWinUI3.Models
             var localeSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             if (localeSettings.Values.ContainsKey("NameList"))
             {
-                Name = JsonConvert.DeserializeObject<Dictionary<int, string>>((string)localeSettings.Values["NameList"]);
+                Name = JsonConvert.DeserializeObject<List<string>>((string)localeSettings.Values["NameList"]);
             }
             else
             {
@@ -93,7 +93,7 @@ namespace DrawLosAssistantWinUI3.Models
             }
             if (localeSettings.Values.ContainsKey("RareList"))
             {
-                RareList = JsonConvert.DeserializeObject<Dictionary<int, string>>((string)localeSettings.Values["RareList"]);
+                RareList = JsonConvert.DeserializeObject<List<string>>((string)localeSettings.Values["RareList"]);
             }
             else
             {
@@ -101,7 +101,7 @@ namespace DrawLosAssistantWinUI3.Models
             }
             if (localeSettings.Values.ContainsKey("SuperRareList"))
             {
-                SuperRareList = JsonConvert.DeserializeObject<Dictionary<int, string>>((string)localeSettings.Values["SuperRareList"]);
+                SuperRareList = JsonConvert.DeserializeObject<List<string>>((string)localeSettings.Values["SuperRareList"]);
             }
             else
             {

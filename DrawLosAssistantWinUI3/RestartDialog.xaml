@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentDialog
+    x:Class="DrawLosAssistantWinUI3.RestartDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DrawLosAssistantWinUI3"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d"
+    IsPrimaryButtonEnabled="False"
+    Title="应用已更新，将会在10秒内重启"
+    Loaded="ContentDialog_Loaded"
+    >
+
+    <Grid Margin="20">
+        <ProgressBar Name="Progress" Maximum="10"/>
+    </Grid>
+</ContentDialog>

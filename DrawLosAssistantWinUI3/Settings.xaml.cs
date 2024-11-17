@@ -46,21 +46,21 @@ namespace DrawLosAssistantWinUI3
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            NameList.Name.Add(NameList.Count, Input.Text);
+            NameList.Name.Add(Input.Text);
             NameList.Save("Normal");
             Input.Text = "";
         }
 
         private void AddRare_Click(object sender, RoutedEventArgs e)
         {
-            NameList.RareList.Add(NameList.RareList.Count, Input.Text);
+            NameList.RareList.Add(Input.Text);
             NameList.Save("Rare");
             InputR.Text = "";
         }
 
         private void AddSuperRare_Click(object sender, RoutedEventArgs e)
         {
-            NameList.SuperRareList.Add(NameList.SuperRareList.Count, InputSR.Text);
+            NameList.SuperRareList.Add(InputSR.Text);
             NameList.Save("Super Rare");
             InputSR.Text = "";
         }
@@ -98,8 +98,8 @@ namespace DrawLosAssistantWinUI3
         {
             ApplicationData.Current.LocalSettings.Values.Clear();
             SaveStatus.Severity = InfoBarSeverity.Warning;
-            SaveStatus.Title = "Ó¦ÓÃÒÑÖØÖÃ";
-            SaveStatus.Content = "½«ÔÚ1sºó¹Ø±Õ";
+            SaveStatus.Title = "åº”ç”¨å·²é‡ç½®";
+            SaveStatus.Content = "å°†åœ¨1såå…³é—­";
             
             SaveStatus.IsOpen = true; 
             await Task.Delay(1000);
@@ -110,7 +110,7 @@ namespace DrawLosAssistantWinUI3
         {
             var ExportLocationPicker = new Windows.Storage.Pickers.FileSavePicker();
             ExportLocationPicker.SuggestedFileName = "NameList";
-            ExportLocationPicker.FileTypeChoices.Add("JsonÎÄ¼ş", new List<string>() { ".json" });
+            ExportLocationPicker.FileTypeChoices.Add("Jsonæ–‡ä»¶", new List<string>() { ".json" });
             var localSettings = ApplicationData.Current.LocalSettings;
             WinRT.Interop.InitializeWithWindow.Initialize(ExportLocationPicker, hWnd);
 
@@ -124,10 +124,10 @@ namespace DrawLosAssistantWinUI3
                 FileUpdateStatus updateStatus = await CachedFileManager.CompleteUpdatesAsync(exportFile);
                 if (updateStatus == FileUpdateStatus.Complete)
                 {
-                    // µ¼³ö³É¹¦Banner
+                    // å¯¼å‡ºæˆåŠŸBanner
                     SaveStatus.Severity = InfoBarSeverity.Success;
-                    SaveStatus.Title = "±£´æ³É¹¦";
-                    SaveStatus.Content = "ÆÕÍ¨Ãûµ¥±£´æ³É¹¦";
+                    SaveStatus.Title = "ä¿å­˜æˆåŠŸ";
+                    SaveStatus.Content = "æ™®é€šåå•ä¿å­˜æˆåŠŸ";
                     SaveStatus.IsOpen = true;
 
                     await Task.Delay(3000);
@@ -136,10 +136,10 @@ namespace DrawLosAssistantWinUI3
                 }
                 if (updateStatus == FileUpdateStatus.Failed)
                 {
-                    // µ¼³öÊ§°ÜBanner
+                    // å¯¼å‡ºå¤±è´¥Banner
                     SaveStatus.Severity = InfoBarSeverity.Error;
-                    SaveStatus.Title = "±£´æÊ§°Ü";
-                    SaveStatus.Content = "Çë¼ì²éÊÇ·ñÓĞ¶ÔÓ¦È¨ÏŞ£¬ÎÄ¼şÊÇ·ñ±»Õ¼ÓÃµÈ";
+                    SaveStatus.Title = "ä¿å­˜å¤±è´¥";
+                    SaveStatus.Content = "è¯·æ£€æŸ¥æ˜¯å¦æœ‰å¯¹åº”æƒé™ï¼Œæ–‡ä»¶æ˜¯å¦è¢«å ç”¨ç­‰";
 
                     SaveStatus.IsOpen = true;
                     await Task.Delay(3000);
@@ -167,10 +167,10 @@ namespace DrawLosAssistantWinUI3
                 FileUpdateStatus updateStatus = await CachedFileManager.CompleteUpdatesAsync(exportFile);
                 if (updateStatus == FileUpdateStatus.Complete)
                 {
-                    // µ¼³ö³É¹¦Banner
+                    // å¯¼å‡ºæˆåŠŸBanner
                     SaveStatus.Severity = InfoBarSeverity.Success;
-                    SaveStatus.Title = "±£´æ³É¹¦";
-                    SaveStatus.Content = "RÃûµ¥±£´æ³É¹¦";
+                    SaveStatus.Title = "ä¿å­˜æˆåŠŸ";
+                    SaveStatus.Content = "Råå•ä¿å­˜æˆåŠŸ";
 
                     SaveStatus.IsOpen = true;
                     await Task.Delay(3000);
@@ -179,10 +179,10 @@ namespace DrawLosAssistantWinUI3
                 }
                 if (updateStatus == FileUpdateStatus.Failed)
                 {
-                    // µ¼³öÊ§°ÜBanner
+                    // å¯¼å‡ºå¤±è´¥Banner
                     SaveStatus.Severity = InfoBarSeverity.Error;
-                    SaveStatus.Title = "±£´æÊ§°Ü";
-                    SaveStatus.Content = "Çë¼ì²éÊÇ·ñÓĞ¶ÔÓ¦È¨ÏŞ£¬ÎÄ¼şÊÇ·ñ±»Õ¼ÓÃµÈ";
+                    SaveStatus.Title = "ä¿å­˜å¤±è´¥";
+                    SaveStatus.Content = "è¯·æ£€æŸ¥æ˜¯å¦æœ‰å¯¹åº”æƒé™ï¼Œæ–‡ä»¶æ˜¯å¦è¢«å ç”¨ç­‰";
 
                     SaveStatus.IsOpen = true;
                     await Task.Delay(3000);
@@ -210,10 +210,10 @@ namespace DrawLosAssistantWinUI3
                 FileUpdateStatus updateStatus = await CachedFileManager.CompleteUpdatesAsync(exportFile);
                 if (updateStatus == FileUpdateStatus.Complete)
                 {
-                    // µ¼³ö³É¹¦Banner
+                    // å¯¼å‡ºæˆåŠŸBanner
                     SaveStatus.Severity = InfoBarSeverity.Success;
-                    SaveStatus.Title = "±£´æ³É¹¦";
-                    SaveStatus.Content = "SRÃûµ¥±£´æ³É¹¦";
+                    SaveStatus.Title = "ä¿å­˜æˆåŠŸ";
+                    SaveStatus.Content = "SRåå•ä¿å­˜æˆåŠŸ";
 
                     SaveStatus.IsOpen = true;
                     await Task.Delay(3000);
@@ -222,10 +222,10 @@ namespace DrawLosAssistantWinUI3
                 }
                 if (updateStatus == FileUpdateStatus.Failed)
                 {
-                    // µ¼³öÊ§°ÜBanner
+                    // å¯¼å‡ºå¤±è´¥Banner
                     SaveStatus.Severity = InfoBarSeverity.Error;
-                    SaveStatus.Title = "±£´æÊ§°Ü";
-                    SaveStatus.Content = "Çë¼ì²éÊÇ·ñÓĞ¶ÔÓ¦È¨ÏŞ£¬ÎÄ¼şÊÇ·ñ±»Õ¼ÓÃµÈ";
+                    SaveStatus.Title = "ä¿å­˜å¤±è´¥";
+                    SaveStatus.Content = "è¯·æ£€æŸ¥æ˜¯å¦æœ‰å¯¹åº”æƒé™ï¼Œæ–‡ä»¶æ˜¯å¦è¢«å ç”¨ç­‰";
 
                     SaveStatus.IsOpen = true;
                     await Task.Delay(3000);
@@ -250,8 +250,8 @@ namespace DrawLosAssistantWinUI3
                 string ImportContent = await FileIO.ReadTextAsync(file);
                 localSettings.Values["NameList"] = ImportContent;
                 SaveStatus.Severity = InfoBarSeverity.Success;
-                SaveStatus.Title = "µ¼Èë³É¹¦";
-                SaveStatus.Content = "ÆÕÍ¨Ãûµ¥µ¼Èë³É¹¦";
+                SaveStatus.Title = "å¯¼å…¥æˆåŠŸ";
+                SaveStatus.Content = "æ™®é€šåå•å¯¼å…¥æˆåŠŸ";
                 
                 SaveStatus.IsOpen = true;
                 await Task.Delay(3000);
@@ -283,8 +283,8 @@ namespace DrawLosAssistantWinUI3
                 reader.Close();
                 localSettings.Values["NameList"] = JsonConvert.SerializeObject(imports);
                 SaveStatus.Severity = InfoBarSeverity.Success;
-                SaveStatus.Title = "µ¼Èë³É¹¦";
-                SaveStatus.Content = "ÆÕÍ¨Ãûµ¥µ¼Èë³É¹¦";
+                SaveStatus.Title = "å¯¼å…¥æˆåŠŸ";
+                SaveStatus.Content = "æ™®é€šåå•å¯¼å…¥æˆåŠŸ";
                 
                 SaveStatus.IsOpen = true; 
                 await Task.Delay(3000);
@@ -307,8 +307,8 @@ namespace DrawLosAssistantWinUI3
                 string ImportContent = await FileIO.ReadTextAsync(file);
                 localSettings.Values["RareList"] = ImportContent;
                 SaveStatus.Severity = InfoBarSeverity.Success;
-                SaveStatus.Title = "µ¼Èë³É¹¦";
-                SaveStatus.Content = "RareÃûµ¥µ¼Èë³É¹¦";
+                SaveStatus.Title = "å¯¼å…¥æˆåŠŸ";
+                SaveStatus.Content = "Rareåå•å¯¼å…¥æˆåŠŸ";
                 
                 SaveStatus.IsOpen = true;
                 await Task.Delay(3000);
@@ -332,8 +332,8 @@ namespace DrawLosAssistantWinUI3
                 string ImportContent = await FileIO.ReadTextAsync(file);
                 localSettings.Values["SuperRareList"] = ImportContent;
                 SaveStatus.Severity = InfoBarSeverity.Success;
-                SaveStatus.Title = "µ¼Èë³É¹¦";
-                SaveStatus.Content = "SRÃûµ¥µ¼Èë³É¹¦";
+                SaveStatus.Title = "å¯¼å…¥æˆåŠŸ";
+                SaveStatus.Content = "SRåå•å¯¼å…¥æˆåŠŸ";
                 
                 SaveStatus.IsOpen = true;
                 await Task.Delay(3000);
@@ -379,8 +379,8 @@ namespace DrawLosAssistantWinUI3
                 }
                 reader.Close();
                 localSettings.Values["RareList"] = JsonConvert.SerializeObject(imports);
-                SaveStatus.Title = "µ¼Èë³É¹¦";
-                SaveStatus.Content = "RareÃûµ¥µ¼Èë³É¹¦";
+                SaveStatus.Title = "å¯¼å…¥æˆåŠŸ";
+                SaveStatus.Content = "Rareåå•å¯¼å…¥æˆåŠŸ";
                 
                 SaveStatus.IsOpen = true; 
                 await Task.Delay(3000);
@@ -451,8 +451,8 @@ namespace DrawLosAssistantWinUI3
                 }
                 reader.Close();
                 localSettings.Values["SuperRareList"] = JsonConvert.SerializeObject(imports);
-                SaveStatus.Title = "µ¼Èë³É¹¦";
-                SaveStatus.Content = "SuperRareÃûµ¥µ¼Èë³É¹¦";
+                SaveStatus.Title = "å¯¼å…¥æˆåŠŸ";
+                SaveStatus.Content = "SuperRareåå•å¯¼å…¥æˆåŠŸ";
 
                 SaveStatus.IsOpen = true; 
                 await Task.Delay(3000);

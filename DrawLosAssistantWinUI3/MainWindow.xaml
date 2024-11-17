@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Activated="Window_Activated">
 
-    <NavigationView Name="Nav" ItemInvoked="Nav_ItemInvoked" SelectedItem="Home">
+    <NavigationView Name="Nav" Loaded="Nav_Loaded" ItemInvoked="Nav_ItemInvoked" SelectedItem="Home">
         <NavigationView.MenuItems>
             <NavigationViewItem Icon="Home" Content="主页" Tag="Home" />
             <NavigationViewItem Icon="SwitchApps" Content="Debug" Tag="Debug" Visibility="Collapsed" Name="DebugOption" />

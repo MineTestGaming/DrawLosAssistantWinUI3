@@ -45,18 +45,18 @@ namespace DrawLosAssistantWinUI3
 
         private async void ConfirmTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ConfirmTextBox.Text == "ÎÒÈ·ÈÏÒªËø¶¨Ãûµ¥²¢Òş²ØÉèÖÃ")
+            if (ConfirmTextBox.Text == "æˆ‘ç¡®è®¤è¦é”å®šåå•å¹¶éšè—è®¾ç½®")
             {
                 ConfirmTextBox.IsEnabled = false;
                 int i = 5;
                 while(i != 0)
                 {
-                    PrimaryButtonText = "È·¶¨ (" + i + ")";
+                    PrimaryButtonText = "ç¡®å®š (" + i + ")";
                     await Task.Delay(1000);
                     i--;
                 }
                 
-                PrimaryButtonText = "È·¶¨";
+                PrimaryButtonText = "ç¡®å®š";
                 IsPrimaryButtonEnabled = true;
             }
         }

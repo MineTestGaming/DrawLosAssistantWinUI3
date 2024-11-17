@@ -17,9 +17,12 @@
     <None Remove="Assets\Gacha.flac" />
     <None Remove="Assets\Rare.mp4" />
     <None Remove="BlankPage1.xaml" />
+    <None Remove="BlankPage2.xaml" />
     <None Remove="Gacha.xaml" />
     <None Remove="Homepage.xaml" />
     <None Remove="LockdownConfirm.xaml" />
+    <None Remove="NewSettings.xaml" />
+    <None Remove="RestartDialog.xaml" />
     <None Remove="ResultPage\Common.xaml" />
     <None Remove="ResultPage\Rare.xaml" />
     <None Remove="ResultPage\SuperRare.xaml" />
@@ -52,6 +55,24 @@
     <Content Update="Assets\Rare.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="NewSettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="RestartDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="BlankPage2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>
