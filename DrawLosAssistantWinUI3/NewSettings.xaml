@@ -7,9 +7,117 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:tk="using:CommunityToolkit.WinUI.Controls"
+    xmlns:ui="using:CommunityToolkit.WinUI"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <Style x:Key="SettingExpanderStyle" TargetType="Expander">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="{StaticResource CardBackgroundFillColorDefault}" />
+        </Style>
+    </Page.Resources>
+    <RelativePanel>
+        <TextBlock Text="设置" FontSize="48" Margin="20,20,0,0" Name="SettingsTitle" />
+        <ScrollViewer RelativePanel.Below="SettingsTitle" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+            <StackPanel Orientation="Vertical" Padding="20">
+                <TextBlock Text="名单配置" FontWeight="Bold" Margin="1,0,0,10" />
+                <tk:SettingsExpander IsExpanded="False" Header="普通名单" HeaderIcon="{ui:SymbolIcon Symbol=List}">
+                    <tk:SettingsExpander.Items>
+                        <tk:SettingsCard Header="手动添加名单">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox x:Name="Input" PlaceholderText="名字" Margin="0,0,5,0"  MinWidth="150" />
+                                <Button x:Name="Add" Content="添加" Margin="5,0,0,0" Click="Add_Click" />
+                            </StackPanel>
+                        </tk:SettingsCard>
+                        <tk:SettingsCard Header="从Json导入" Description="请务必导入由该软件导出的Json文件，否则将无法工作">
+                            <Button x:Name="Import" Content="打开" Margin="10,0,0,0" Grid.Column="1" Click="Import_Click" MinWidth="125" />
+                        </tk:SettingsCard>
+                        <tk:SettingsCard Header="从txt导入">
+                            <Button x:Name="ImportFromTxt" Content="浏览" Click="ImportFromTxt_Click" MinWidth="125" />
+                        </tk:SettingsCard>
+                        <tk:SettingsCard Header="导出为Json">
+                            <Button x:Name="Export" Content="导出" Click="Export_Click" MinWidth="125" />
+                        </tk:SettingsCard>
+                    </tk:SettingsExpander.Items>
+                </tk:SettingsExpander>
+                <tk:SettingsExpander IsExpanded="False" Header="Rare名单" HeaderIcon="{ui:SymbolIcon Symbol=List}" Name="RareListOpt">
+                    <ToggleSwitch Name="RareToggle" Toggled="RareToggle_Toggled" Header="" />
+                    <tk:SettingsExpander.Items>
+                        <tk:SettingsCard Header="手动添加名单" Name="AddListCardR">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox x:Name="InputR" PlaceholderText="名字" Margin="0,0,5,0"  MinWidth="150" />
+                                <Button x:Name="AddRare" Content="添加" Margin="5,0,0,0" Click="AddRare_Click" />
+                            </StackPanel>
+                        </tk:SettingsCard>
+                        <tk:SettingsCard Header="从Json导入" Description="请务必导入由该软件导出的Json文件，否则将无法工作" Name="ImportRCard">
+                            <Button x:Name="ImportRare" Content="打开" Margin="10,0,0,0" Grid.Column="1" Click="ImportRare_Click" MinWidth="125" />
+                        </tk:SettingsCard>
+                        <tk:SettingsCard Header="从txt导入" Name="ImportRtxtCard">
+                            <Button x:Name="RareImportFromTxt" Content="浏览" Click="RareImportFromTxt_Click" MinWidth="125" />
+                        </tk:SettingsCard>
+                        <tk:SettingsCard Header="导出为Json" Name="ExportRCard">
+                            <Button x:Name="ExportR" Content="导出" Click="ExportR_Click" MinWidth="125" />
+                        </tk:SettingsCard>
+                    </tk:SettingsExpander.Items>
+                </tk:SettingsExpander>
+                <tk:SettingsExpander IsExpanded="False" Header="Super Rare名单" HeaderIcon="{ui:SymbolIcon Symbol=List}">
+                    <ToggleSwitch Name="SuperRareToggle" Toggled="SuperRareToggle_Toggled" />
+                    <tk:SettingsExpander.Items>
+                        <tk:SettingsCard Header="手动添加名单" Name="AddListCardSR">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox x:Name="InputSR" PlaceholderText="名字" Margin="0,0,5,0"  MinWidth="150" />
+                                <Button x:Name="AddSuperRare" Content="添加" Margin="5,0,0,0" Click="AddSuperRare_Click" />
+                            </StackPanel>
+                        </tk:SettingsCard>
+                        <tk:SettingsCard Name="ImportSRCard" Header="从Json导入" Description="请务必导入由该软件导出的Json文件，否则将无法工作">
+                            <Button x:Name="ImportSuperRare" Content="打开" Margin="10,0,0,0" Grid.Column="1" Click="ImportSuperRare_Click" MinWidth="125" />
+                        </tk:SettingsCard>
+                        <tk:SettingsCard Header="从txt导入" Name="ImportSRtxtCard">
+                            <Button x:Name="SuperRareImportFromTxt" Content="浏览" Click="SuperRareImportFromTxt_Click" MinWidth="125" />
+                        </tk:SettingsCard>
+                        <tk:SettingsCard Header="导出为Json" Name="ExportSRCard">
+                            <Button x:Name="ExportSR" Content="导出" Click="ExportSR_Click" MinWidth="125" />
+                        </tk:SettingsCard>
+                    </tk:SettingsExpander.Items>
+                </tk:SettingsExpander>
+                <TextBlock Text="自定义配置" FontWeight="Bold" Margin="1,10,0,10" />
+                <tk:SettingsExpander IsExpanded="False" Header="音频选项" HeaderIcon="{ui:SymbolIcon Symbol=MusicInfo}">
+                    <tk:SettingsExpander.Items>
+                        <tk:SettingsCard Header="音频类型" Name="AudioTypeCard" Loaded="AudioTypeCard_Loaded">
 
-    <Grid>
-
-    </Grid>
+                            <ComboBox Name="AudioTypeComboBox" SelectionChanged="AudioTypeComboBox_SelectionChanged">
+                                <x:String>视频内嵌音频</x:String>
+                                <x:String>外置音频</x:String>
+                            </ComboBox>
+                        </tk:SettingsCard>
+                        <tk:SettingsCard Header="音频路径" Name="AudioLocationCard">
+                            <Button Name="AudioLocation" Click="AudioLocation_Click" Content="浏览" />
+                        </tk:SettingsCard>
+                    </tk:SettingsExpander.Items>
+                </tk:SettingsExpander>
+                <tk:SettingsExpander IsExpanded="False" Header="背景视频选项" HeaderIcon="{ui:SymbolIcon Symbol=SlideShow}">
+                    <tk:SettingsExpander.Items>
+                        <tk:SettingsCard Header="普通等级动画路径">
+                            <Button Name="NormalVideoSel" Content="浏览" Click="NormalVideoSel_Click" MinWidth="125"/>
+                        </tk:SettingsCard>
+                        <tk:SettingsCard Header="Rare等级动画路径" Name="RareBGA">
+                            <Button Name="RareVideoSel" Content="浏览" Click="RareVideoSel_Click" MinWidth="125"/>
+                        </tk:SettingsCard>
+                        <tk:SettingsCard Header="Super Rare等级动画路径" Name="SuperRareBGA">
+                            <Button Name="SRVideoSel" Content="浏览" Click="SRVideoSel_Click" MinWidth="125"/>
+                        </tk:SettingsCard>
+                    </tk:SettingsExpander.Items>
+                </tk:SettingsExpander>
+                <TextBlock Text="其他配置" FontWeight="Bold" Margin="1,10,0,10" />
+                <tk:SettingsCard HeaderIcon="{ui:SymbolIcon Symbol=ProtectedDocument}" Header="锁定名单并隐藏设置" Description="即将弃用，替代方案正在开发的路上">
+                    <Button Content="锁定" Name="Lockdown" Click="Lockdown_Click"/>
+                </tk:SettingsCard>
+                <tk:SettingsCard HeaderIcon="{ui:SymbolIcon Symbol=Rotate}" Header="重置">
+                    <Button x:Name="Clear" Content="重置" Click="Clear_Click" />
+                </tk:SettingsCard>
+            </StackPanel>
+        </ScrollViewer>
+        <InfoBar Name="SaveStatus" IsClosable="True" IsOpen="False" Title="Title" Content="Content" Severity="Informational" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="20" />
+    </RelativePanel>
 </Page>

@@ -17,19 +17,14 @@ namespace DrawLosAssistantWinUI3
     /// </summary>
     public sealed partial class MainWindow : Window
     {
+        private bool RefreshDebug = false;
         private bool LoadingBreak = false;
 
         public MainWindow()
         {
             this.InitializeComponent();
 
-            if ((!ApplicationData.Current.LocalSettings.Values.ContainsKey("RefreshedVer") && ApplicationData.Current.LocalSettings.Values.ContainsKey("AudioType") && !ApplicationData.Current.LocalSettings.Values.ContainsKey("IsSettingsVisible")) || ApplicationData.Current.LocalSettings.Values["RefreshVer"].Equals(false))
-            {
-                ApplicationData.Current.LocalSettings.Values.Clear();
-
-                ApplicationData.Current.LocalSettings.Values["RefreshVer"] = true;
-                LoadingBreak = true;
-            }
+            
             if (!LoadingBreak)
             {
                 MainFrame.Navigate(typeof(Homepage));
@@ -62,6 +57,19 @@ namespace DrawLosAssistantWinUI3
             if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("IsSuperRareEnabled"))
             {
                 ApplicationData.Current.LocalSettings.Values["IsSuperRareEnabled"] = true;
+            }
+
+            if ((!ApplicationData.Current.LocalSettings.Values.ContainsKey("RefreshedVer") &&
+                ApplicationData.Current.LocalSettings.Values["RefreshVer"] != null &&
+                ApplicationData.Current.LocalSettings.Values.ContainsKey("AudioType") &&
+                !ApplicationData.Current.LocalSettings.Values.ContainsKey("IsSettingsVisible")) ||
+                RefreshDebug)
+            {
+
+                ApplicationData.Current.LocalSettings.Values.Clear();
+
+                ApplicationData.Current.LocalSettings.Values["RefreshVer"] = true;
+                LoadingBreak = true;
             }
         }
 
@@ -109,6 +117,11 @@ namespace DrawLosAssistantWinUI3
         private void Nav_Loaded(object sender, RoutedEventArgs e)
         {
             if (LoadingBreak) { RestartApp(this.Content.XamlRoot); }
+        }
+
+        private void SuperSecrectButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(typeof(NewSettings));
         }
     }
 }

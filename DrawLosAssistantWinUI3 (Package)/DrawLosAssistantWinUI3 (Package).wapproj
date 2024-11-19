@@ -36,7 +36,7 @@
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.props" />
   <PropertyGroup>
     <ProjectGuid>12c4202f-7a13-40d9-b900-a9668a3aea28</ProjectGuid>
-    <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.26100.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <AssetTargetFallback>net6.0-windows$(TargetPlatformVersion);$(AssetTargetFallback)</AssetTargetFallback>
     <DefaultLanguage>zh-CN</DefaultLanguage>
@@ -152,10 +152,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.231219000">
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.240923002">
       <IncludeAssets>build</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.2428">
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742">
       <IncludeAssets>build</IncludeAssets>
     </PackageReference>
   </ItemGroup>

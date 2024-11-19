@@ -16,6 +16,11 @@
         </NavigationView.MenuItems>
         <NavigationView.Content>
             <Grid>
+                <Button Opacity="100" MaxHeight="1" MaxWidth="1" Name="SuperSecrectButton" Click="SuperSecrectButton_Click">
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="Control" Key="K"/>
+                    </Button.KeyboardAccelerators>
+                </Button>
                 <InfoBar Name="Reseted" IsOpen="False" Title="重复名单已重置" Message="名单已抽完，将自动重置重复名单" IsClosable="True" />
                 <Frame x:Name="MainFrame" />
             </Grid>

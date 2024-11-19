@@ -31,5 +31,10 @@ namespace DrawLosAssistantWinUI3
         {
             this.Frame.Navigate(typeof(SuperRare));
         }
+
+        private void NewSetting_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(NewSettings));
+        }
     }
 }

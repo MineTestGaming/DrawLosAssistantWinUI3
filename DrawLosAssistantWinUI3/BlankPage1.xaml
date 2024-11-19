@@ -13,5 +13,6 @@
         <Button Name="CommonResult" Content="白卡" Click="CommonResult_Click" />
         <Button Name="RareResult" Content="金卡" Click="RareResult_Click" />
         <Button Name="SuperRareResult" Content="虹卡" Click="SuperRareResult_Click" />
+        <Button Name="NewSetting" Content="新设置" Click="NewSetting_Click"/>
     </StackPanel>
 </Page>
