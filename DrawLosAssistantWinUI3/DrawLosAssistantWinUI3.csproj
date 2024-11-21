@@ -24,6 +24,8 @@
 	<None Remove="Homepage.xaml" />
 	<None Remove="LockdownConfirm.xaml" />
 	<None Remove="NewSettings.xaml" />
+	<None Remove="PasswordGeneration.xaml" />
+	<None Remove="PasswordVerify.xaml" />
 	<None Remove="RestartDialog.xaml" />
 	<None Remove="ResultPage\Common.xaml" />
 	<None Remove="ResultPage\Rare.xaml" />
@@ -61,9 +63,27 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="CommandPrompt.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+	<Page Update="PasswordVerify.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+  </ItemGroup>
+
+  <ItemGroup>
+	<Page Update="BlankPage2.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+  </ItemGroup>
+
+  <ItemGroup>
+	<Page Update="PasswordGeneration.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+  </ItemGroup>
+
+  <ItemGroup>
+	<Page Update="CommandPrompt.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
   </ItemGroup>
 
   <ItemGroup>
@@ -74,12 +94,6 @@
 
   <ItemGroup>
 	<Page Update="RestartDialog.xaml">
-	  <Generator>MSBuild:Compile</Generator>
-	</Page>
-  </ItemGroup>
-
-  <ItemGroup>
-	<Page Update="BlankPage2.xaml">
 	  <Generator>MSBuild:Compile</Generator>
 	</Page>
   </ItemGroup>

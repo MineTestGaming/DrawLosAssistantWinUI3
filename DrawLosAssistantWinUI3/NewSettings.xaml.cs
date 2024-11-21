@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Windows.Storage.Provider;
 using Windows.Storage;
+using Windows.ApplicationModel.Core;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -35,11 +36,7 @@ namespace DrawLosAssistantWinUI3
         {
             this.InitializeComponent();
             string Audiotype = ApplicationData.Current.LocalSettings.Values["AudioType"].ToString();
-            if (Audiotype == "External")
-            {
-                //  AudioType.IsOn = true;
-                //  CustomizeAudio.Visibility = Visibility.Visible;
-            }
+
             if (ApplicationData.Current.LocalSettings.Values["IsRareEnabled"].ToString() == "True")
             {
                 RareToggle.IsOn = true;
@@ -64,6 +61,10 @@ namespace DrawLosAssistantWinUI3
                 ImportSRCard.IsEnabled = false;
                 ExportSRCard.IsEnabled = false;
                 SuperRareBGA.IsEnabled = SuperRareToggle.IsOn;
+            }
+            if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Password"))
+            {
+                DelPwdCard.IsEnabled = true;
             }
         }
 
@@ -498,7 +499,6 @@ namespace DrawLosAssistantWinUI3
             ExportRCard.IsEnabled = RareToggle.IsOn;
             RareBGA.IsEnabled = RareToggle.IsOn;
 
-            ApplicationData.Current.LocalSettings.Values["IsRareEnabled"] = RareToggle.IsOn;
         }
 
         private void SuperRareToggle_Toggled(object sender, RoutedEventArgs e)
@@ -559,6 +559,26 @@ namespace DrawLosAssistantWinUI3
                     AudioLocationCard.IsEnabled = true;
                     break;
             }
+        }
+
+        private async void SetPassword_Click(object sender, RoutedEventArgs e)
+        {
+            PasswordGeneration pwdWnd = new PasswordGeneration();
+            pwdWnd.XamlRoot = this.XamlRoot;
+
+            await pwdWnd.ShowAsync();
+
+        }
+
+        private async void DeletePwd_Click(object sender, RoutedEventArgs e)
+        {
+            ApplicationData.Current.LocalSettings.Values.Remove("Password");
+            ApplicationData.Current.LocalSettings.Values["IsSettingsVisible"] = "1";
+            SaveStatus.Content = "应用将在3秒后重启";
+            SaveStatus.IsOpen = true;
+            await Task.Delay(3000);
+            await CoreApplication.RequestRestartAsync("");
+            Application.Current.Exit();
         }
     }
 }

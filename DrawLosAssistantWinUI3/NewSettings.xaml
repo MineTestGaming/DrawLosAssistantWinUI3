@@ -110,12 +110,19 @@
                     </tk:SettingsExpander.Items>
                 </tk:SettingsExpander>
                 <TextBlock Text="其他配置" FontWeight="Bold" Margin="1,10,0,10" />
-                <tk:SettingsCard HeaderIcon="{ui:SymbolIcon Symbol=ProtectedDocument}" Header="锁定名单并隐藏设置" Description="即将弃用，替代方案正在开发的路上">
-                    <Button Content="锁定" Name="Lockdown" Click="Lockdown_Click"/>
+                <tk:SettingsCard HeaderIcon="{ui:SymbolIcon Symbol=Clear}" Header="锁定名单并隐藏设置" Description="即将弃用，替代方案正在开发的路上">
+                    <Button Content="锁定" Name="Lockdown" Click="Lockdown_Click" MinWidth="125"/>
+                </tk:SettingsCard>
+                <tk:SettingsCard HeaderIcon="{ui:SymbolIcon Symbol=ProtectedDocument}" Header="设置密码" Description="设置后此处的设置页面会隐藏，若需重新访问，请按照设置密码窗口的提示重新访问">
+                    <Button Content="设置" Name="SetPassword" Click="SetPassword_Click" MinWidth="125"/>
+                </tk:SettingsCard>
+                <tk:SettingsCard HeaderIcon="{ui:SymbolIcon Symbol=Delete}" Header="删除密码" IsEnabled="False" Name="DelPwdCard">
+                    <Button Content="删除" Name="DeletePwd" Click="DeletePwd_Click" MinWidth="125"/>
                 </tk:SettingsCard>
                 <tk:SettingsCard HeaderIcon="{ui:SymbolIcon Symbol=Rotate}" Header="重置">
-                    <Button x:Name="Clear" Content="重置" Click="Clear_Click" />
+                    <Button x:Name="Clear" Content="重置" Click="Clear_Click" MinWidth="125"/>
                 </tk:SettingsCard>
+                
             </StackPanel>
         </ScrollViewer>
         <InfoBar Name="SaveStatus" IsClosable="True" IsOpen="False" Title="Title" Content="Content" Severity="Informational" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="20" />

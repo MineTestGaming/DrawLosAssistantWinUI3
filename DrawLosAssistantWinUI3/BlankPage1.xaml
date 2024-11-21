@@ -14,5 +14,9 @@
         <Button Name="RareResult" Content="金卡" Click="RareResult_Click" />
         <Button Name="SuperRareResult" Content="虹卡" Click="SuperRareResult_Click" />
         <Button Name="NewSetting" Content="新设置" Click="NewSetting_Click"/>
+        <Button Name="DisplayPassword" Content="显示密码" Click="DisplayPassword_Click" IsEnabled="False"/>
+        <TextBlock Text="密码: ****" Name="PasswordDisplay"/>
+        <Button Name="ShowSettings" Content="显示设置" Click="ShowSettings_Click"/>
+        <Button Name="ClearPassword" Content="清除密码" Click="ClearPassword_Click"/>
     </StackPanel>
 </Page>

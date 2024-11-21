@@ -77,7 +77,7 @@ namespace DrawLosAssistantWinUI3
         {
             if (args.IsSettingsInvoked)
             {
-                MainFrame.Navigate(typeof(Settings));
+                MainFrame.Navigate(typeof(NewSettings));
             }
             else
             {
@@ -119,9 +119,12 @@ namespace DrawLosAssistantWinUI3
             if (LoadingBreak) { RestartApp(this.Content.XamlRoot); }
         }
 
-        private void SuperSecrectButton_Click(object sender, RoutedEventArgs e)
+        private async void SuperSecrectButton_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(typeof(NewSettings));
+            var CmdPromptDialog = new CommandPrompt();
+            CmdPromptDialog.XamlRoot = Nav.XamlRoot;
+
+            await CmdPromptDialog.ShowAsync();
         }
     }
 }
