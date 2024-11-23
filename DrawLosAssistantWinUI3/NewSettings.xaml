@@ -2,13 +2,12 @@
 <Page
     x:Class="DrawLosAssistantWinUI3.NewSettings"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:DrawLosAssistantWinUI3"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    xmlns:tk="using:CommunityToolkit.WinUI.Controls"
     xmlns:ui="using:CommunityToolkit.WinUI"
+    xmlns:tk="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <Style x:Key="SettingExpanderStyle" TargetType="Expander">
@@ -99,30 +98,40 @@
                 <tk:SettingsExpander IsExpanded="False" Header="背景视频选项" HeaderIcon="{ui:SymbolIcon Symbol=SlideShow}">
                     <tk:SettingsExpander.Items>
                         <tk:SettingsCard Header="普通等级动画路径">
-                            <Button Name="NormalVideoSel" Content="浏览" Click="NormalVideoSel_Click" MinWidth="125"/>
+                            <Button Name="NormalVideoSel" Content="浏览" Click="NormalVideoSel_Click" MinWidth="125" />
                         </tk:SettingsCard>
                         <tk:SettingsCard Header="Rare等级动画路径" Name="RareBGA">
-                            <Button Name="RareVideoSel" Content="浏览" Click="RareVideoSel_Click" MinWidth="125"/>
+                            <Button Name="RareVideoSel" Content="浏览" Click="RareVideoSel_Click" MinWidth="125" />
                         </tk:SettingsCard>
                         <tk:SettingsCard Header="Super Rare等级动画路径" Name="SuperRareBGA">
-                            <Button Name="SRVideoSel" Content="浏览" Click="SRVideoSel_Click" MinWidth="125"/>
+                            <Button Name="SRVideoSel" Content="浏览" Click="SRVideoSel_Click" MinWidth="125" />
                         </tk:SettingsCard>
                     </tk:SettingsExpander.Items>
                 </tk:SettingsExpander>
                 <TextBlock Text="其他配置" FontWeight="Bold" Margin="1,10,0,10" />
                 <tk:SettingsCard HeaderIcon="{ui:SymbolIcon Symbol=Clear}" Header="锁定名单并隐藏设置" Description="即将弃用，替代方案正在开发的路上">
-                    <Button Content="锁定" Name="Lockdown" Click="Lockdown_Click" MinWidth="125"/>
+                    <Button Content="锁定" Name="Lockdown" Click="Lockdown_Click" MinWidth="125" />
                 </tk:SettingsCard>
                 <tk:SettingsCard HeaderIcon="{ui:SymbolIcon Symbol=ProtectedDocument}" Header="设置密码" Description="设置后此处的设置页面会隐藏，若需重新访问，请按照设置密码窗口的提示重新访问">
-                    <Button Content="设置" Name="SetPassword" Click="SetPassword_Click" MinWidth="125"/>
+                    <Button Content="设置" Name="SetPassword" Click="SetPassword_Click" MinWidth="125" />
                 </tk:SettingsCard>
                 <tk:SettingsCard HeaderIcon="{ui:SymbolIcon Symbol=Delete}" Header="删除密码" IsEnabled="False" Name="DelPwdCard">
-                    <Button Content="删除" Name="DeletePwd" Click="DeletePwd_Click" MinWidth="125"/>
+                    <Button Content="删除" Name="DeletePwd" Click="DeletePwd_Click" MinWidth="125" />
                 </tk:SettingsCard>
                 <tk:SettingsCard HeaderIcon="{ui:SymbolIcon Symbol=Rotate}" Header="重置">
-                    <Button x:Name="Clear" Content="重置" Click="Clear_Click" MinWidth="125"/>
+                    <Button x:Name="Clear" Content="重置" Click="Clear_Click" MinWidth="125" />
                 </tk:SettingsCard>
-                
+                <TextBlock Text="关于" FontWeight="Bold" Margin="1,10,0,10" />
+                <tk:SettingsExpander HeaderIcon="{ui:BitmapIcon Source=ms-appx:///AppIcon.ico}" Header="抽签助手" Description="© 2024 MineTestGaming" IsExpanded="False">
+                    <tk:SettingsExpander.Items>
+                        <tk:SettingsCard>
+                            <tk:SettingsCard.Header>
+                                <HyperlinkButton Content="项目Github主页" NavigateUri="https://github.com/MineTestGaming/DrawLosAssistantWinUI3" />
+                                <HyperlinkButton Content="发送反馈" NavigateUri="https://github.com/MineTestGaming/DrawLosAssistantWinUI3/issues" />
+                            </tk:SettingsCard.Header>
+                        </tk:SettingsCard>
+                    </tk:SettingsExpander.Items>
+                </tk:SettingsExpander>
             </StackPanel>
         </ScrollViewer>
         <InfoBar Name="SaveStatus" IsClosable="True" IsOpen="False" Title="Title" Content="Content" Severity="Informational" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="20" />

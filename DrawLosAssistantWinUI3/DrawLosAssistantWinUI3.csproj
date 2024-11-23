@@ -9,6 +9,7 @@
 	<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
 	<UseWinUI>true</UseWinUI>
 	  <UseRidGraph>true</UseRidGraph>
+	  <ApplicationIcon>AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
 	<Content Remove="Assets\Gacha.mp4" />
@@ -31,6 +32,9 @@
 	<None Remove="ResultPage\Rare.xaml" />
 	<None Remove="ResultPage\SuperRare.xaml" />
 	<None Remove="Settings.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AppIcon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,6 +64,12 @@
 	<Content Update="Assets\Rare.mp4">
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="AppIcon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
