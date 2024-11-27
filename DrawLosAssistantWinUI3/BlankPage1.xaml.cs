@@ -1,6 +1,7 @@
 using DrawLosAssistantWinUI3.ResultPage;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System;
 using Windows.Storage;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -37,11 +38,6 @@ namespace DrawLosAssistantWinUI3
             this.Frame.Navigate(typeof(SuperRare));
         }
 
-        private void NewSetting_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(NewSettings));
-        }
-
         private void DisplayPassword_Click(object sender, RoutedEventArgs e)
         {
             PasswordDisplay.Text = "密码: " + ApplicationData.Current.LocalSettings.Values["Password"];
@@ -55,6 +51,17 @@ namespace DrawLosAssistantWinUI3
         private void ClearPassword_Click(object sender, RoutedEventArgs e)
         {
             ApplicationData.Current.LocalSettings.Values.Remove("Password");
+        }
+
+        private void LogPage_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(LogPage));
+        }
+
+        private async void DeleteLogFile_Click(object sender, RoutedEventArgs e)
+        {
+            StorageFile file = await ApplicationData.Current.LocalFolder.GetFileAsync("Log.json");
+            await file.DeleteAsync();
         }
     }
 }

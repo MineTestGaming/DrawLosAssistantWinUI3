@@ -36,7 +36,7 @@ namespace DrawLosAssistantWinUI3.Models
                     ResultGet = true;
                 }
             }
-
+            LogRecord.Add("本次抽中Super Rare名单中的" + NameList.SuperRareList[resultNum]);
             return NameList.SuperRareList[resultNum];
         }
 
@@ -67,7 +67,7 @@ namespace DrawLosAssistantWinUI3.Models
                     ResultGet = true;
                 }
             }
-
+            LogRecord.Add("本次抽中Rare名单中的" + NameList.RareList[resultNum]);
             return NameList.RareList[resultNum];
         }
 
@@ -98,7 +98,7 @@ namespace DrawLosAssistantWinUI3.Models
                     ResultGet = true;
                 }
             }
-
+            LogRecord.Add("本次抽中普通名单中的" + NameList.Name[resultNum]);
             return NameList.Name[resultNum];
         }
 

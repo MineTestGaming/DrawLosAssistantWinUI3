@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using Windows.Storage.Provider;
 using Windows.Storage;
 using Windows.ApplicationModel.Core;
+using Windows.Storage.Pickers;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -35,6 +36,10 @@ namespace DrawLosAssistantWinUI3
         public NewSettings()
         {
             this.InitializeComponent();
+            LogRecord.Add("进入设置");
+#if DEBUG
+            ExportLogDev.Visibility = Visibility.Visible;
+#endif
             string Audiotype = ApplicationData.Current.LocalSettings.Values["AudioType"].ToString();
 
             if (ApplicationData.Current.LocalSettings.Values["IsRareEnabled"].ToString() == "True")
@@ -65,6 +70,7 @@ namespace DrawLosAssistantWinUI3
             if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Password"))
             {
                 DelPwdCard.IsEnabled = true;
+                ClearLogCard.IsEnabled = true;
             }
         }
 
@@ -72,21 +78,27 @@ namespace DrawLosAssistantWinUI3
         {
             NameList.Name.Add(Input.Text);
             NameList.Save("Normal");
+            LogRecord.Add("普通名单添加 " + Input.Text);
             Input.Text = "";
+            
         }
 
         private void AddRare_Click(object sender, RoutedEventArgs e)
         {
             NameList.RareList.Add(InputR.Text);
             NameList.Save("Rare");
+            LogRecord.Add("Rare名单添加 " + InputR.Text);
             InputR.Text = "";
+            
         }
 
         private void AddSuperRare_Click(object sender, RoutedEventArgs e)
         {
             NameList.SuperRareList.Add(InputSR.Text);
             NameList.Save("Super Rare");
+            LogRecord.Add("Super Rare名单添加 " + InputSR.Text);
             InputSR.Text = "";
+            
         }
 
         private async void AudioLocation_Click(object sender, RoutedEventArgs e)
@@ -152,6 +164,7 @@ namespace DrawLosAssistantWinUI3
                     SaveStatus.Severity = InfoBarSeverity.Success;
                     SaveStatus.Title = "保存成功";
                     SaveStatus.Content = "普通名单保存成功";
+                    LogRecord.Add("尝试导出普通名单：成功");
                     SaveStatus.IsOpen = true;
 
                     await Task.Delay(3000);
@@ -163,11 +176,12 @@ namespace DrawLosAssistantWinUI3
                     SaveStatus.Severity = InfoBarSeverity.Error;
                     SaveStatus.Title = "保存失败";
                     SaveStatus.Content = "请检查是否有对应权限，文件是否被占用等";
+                    LogRecord.Add("尝试导出普通名单：失败");
 
                     SaveStatus.IsOpen = true;
                     await Task.Delay(3000);
 
-                    SaveStatus.IsOpen = true;
+                    SaveStatus.IsOpen = false;
                 }
             }
         }
@@ -194,6 +208,7 @@ namespace DrawLosAssistantWinUI3
                     SaveStatus.Severity = InfoBarSeverity.Success;
                     SaveStatus.Title = "保存成功";
                     SaveStatus.Content = "R名单保存成功";
+                    LogRecord.Add("尝试导出Rare名单：成功");
 
                     SaveStatus.IsOpen = true;
                     await Task.Delay(3000);
@@ -207,6 +222,7 @@ namespace DrawLosAssistantWinUI3
                     SaveStatus.Title = "保存失败";
                     SaveStatus.Content = "请检查是否有对应权限，文件是否被占用等";
 
+                    LogRecord.Add("尝试导出Rare名单：失败");
                     SaveStatus.IsOpen = true;
                     await Task.Delay(3000);
 
@@ -237,6 +253,7 @@ namespace DrawLosAssistantWinUI3
                     SaveStatus.Severity = InfoBarSeverity.Success;
                     SaveStatus.Title = "保存成功";
                     SaveStatus.Content = "SR名单保存成功";
+                    LogRecord.Add("尝试导出Super Rare名单：成功");
 
                     SaveStatus.IsOpen = true;
                     await Task.Delay(3000);
@@ -249,6 +266,7 @@ namespace DrawLosAssistantWinUI3
                     SaveStatus.Severity = InfoBarSeverity.Error;
                     SaveStatus.Title = "保存失败";
                     SaveStatus.Content = "请检查是否有对应权限，文件是否被占用等";
+                    LogRecord.Add("尝试导出Super Rare名单：失败");
 
                     SaveStatus.IsOpen = true;
                     await Task.Delay(3000);
@@ -267,7 +285,7 @@ namespace DrawLosAssistantWinUI3
             WinRT.Interop.InitializeWithWindow.Initialize(ImportLocationPicker, hWnd);
 
             StorageFile file = await ImportLocationPicker.PickSingleFileAsync();
-
+            LogRecord.Add("尝试导入普通名单");
             if (file != null)
             {
                 string ImportContent = await FileIO.ReadTextAsync(file);
@@ -275,6 +293,7 @@ namespace DrawLosAssistantWinUI3
                 SaveStatus.Severity = InfoBarSeverity.Success;
                 SaveStatus.Title = "导入成功";
                 SaveStatus.Content = "普通名单导入成功";
+                LogRecord.Add("尝试导入普通名单：成功");
 
                 SaveStatus.IsOpen = true;
                 await Task.Delay(3000);
@@ -292,6 +311,7 @@ namespace DrawLosAssistantWinUI3
             StorageFile txt = await filePicker.PickSingleFileAsync();
             Dictionary<int, string> imports = new Dictionary<int, string>();
             int currentLine = 0;
+            LogRecord.Add("尝试导入普通名单");
 
             if (txt != null)
             {
@@ -308,6 +328,7 @@ namespace DrawLosAssistantWinUI3
                 SaveStatus.Severity = InfoBarSeverity.Success;
                 SaveStatus.Title = "导入成功";
                 SaveStatus.Content = "普通名单导入成功";
+                LogRecord.Add("尝试导入普通名单：成功");
 
                 SaveStatus.IsOpen = true;
                 await Task.Delay(3000);
@@ -324,6 +345,7 @@ namespace DrawLosAssistantWinUI3
             WinRT.Interop.InitializeWithWindow.Initialize(ImportLocationPicker, hWnd);
 
             StorageFile file = await ImportLocationPicker.PickSingleFileAsync();
+            LogRecord.Add("尝试导入Rare名单");
 
             if (file != null)
             {
@@ -332,6 +354,7 @@ namespace DrawLosAssistantWinUI3
                 SaveStatus.Severity = InfoBarSeverity.Success;
                 SaveStatus.Title = "导入成功";
                 SaveStatus.Content = "Rare名单导入成功";
+                LogRecord.Add("尝试导入Rare名单：成功");
 
                 SaveStatus.IsOpen = true;
                 await Task.Delay(3000);
@@ -349,6 +372,7 @@ namespace DrawLosAssistantWinUI3
             WinRT.Interop.InitializeWithWindow.Initialize(ImportLocationPicker, hWnd);
 
             StorageFile file = await ImportLocationPicker.PickSingleFileAsync();
+            LogRecord.Add("尝试导入Super Rare名单");
 
             if (file != null)
             {
@@ -357,6 +381,7 @@ namespace DrawLosAssistantWinUI3
                 SaveStatus.Severity = InfoBarSeverity.Success;
                 SaveStatus.Title = "导入成功";
                 SaveStatus.Content = "SR名单导入成功";
+                LogRecord.Add("尝试导入Super Rare名单：成功");
 
                 SaveStatus.IsOpen = true;
                 await Task.Delay(3000);
@@ -373,10 +398,12 @@ namespace DrawLosAssistantWinUI3
             FileSelector.FileTypeFilter.Add("*");
 
             StorageFile storageFile = await FileSelector.PickSingleFileAsync();
-
+            LogRecord.Add("尝试导入普通视频");
             if (storageFile != null)
             {
+
                 localSettings.Values["NormalVideoPath"] = storageFile.Path;
+                LogRecord.Add("尝试导入普通视频：成功");
             }
         }
 
@@ -389,6 +416,7 @@ namespace DrawLosAssistantWinUI3
             StorageFile txt = await filePicker.PickSingleFileAsync();
             Dictionary<int, string> imports = new Dictionary<int, string>();
             int currentLine = 0;
+            LogRecord.Add("尝试导入Rare名单");
 
             if (txt != null)
             {
@@ -405,6 +433,7 @@ namespace DrawLosAssistantWinUI3
                 SaveStatus.Title = "导入成功";
                 SaveStatus.Content = "Rare名单导入成功";
 
+                LogRecord.Add("尝试导入Rare名单：成功");
                 SaveStatus.IsOpen = true;
                 await Task.Delay(3000);
 
@@ -419,10 +448,12 @@ namespace DrawLosAssistantWinUI3
             WinRT.Interop.InitializeWithWindow.Initialize(FileSelector, hWnd);
             FileSelector.FileTypeFilter.Add("*");
             StorageFile storageFile = await FileSelector.PickSingleFileAsync();
+            LogRecord.Add("尝试导入Rare视频");
 
             if (storageFile != null)
             {
                 localSettings.Values["RareVideoPath"] = storageFile.Path;
+                LogRecord.Add("尝试导入Rare视频：成功");
             }
         }
 
@@ -445,10 +476,12 @@ namespace DrawLosAssistantWinUI3
             WinRT.Interop.InitializeWithWindow.Initialize(FileSelector, hWnd);
             FileSelector.FileTypeFilter.Add("*");
             StorageFile storageFile = await FileSelector.PickSingleFileAsync();
+            LogRecord.Add("尝试导入Super Rare视频");
 
             if (storageFile != null)
             {
                 localSettings.Values["SuperRareVideoPath"] = storageFile.Path;
+                LogRecord.Add("尝试导入Super Rare视频：成功");
             }
         }
 
@@ -461,6 +494,7 @@ namespace DrawLosAssistantWinUI3
             StorageFile txt = await filePicker.PickSingleFileAsync();
             Dictionary<int, string> imports = new Dictionary<int, string>();
             int currentLine = 0;
+            LogRecord.Add("尝试导入Super Rare名单");
 
             if (txt != null)
             {
@@ -476,6 +510,7 @@ namespace DrawLosAssistantWinUI3
                 localSettings.Values["SuperRareList"] = JsonConvert.SerializeObject(imports);
                 SaveStatus.Title = "导入成功";
                 SaveStatus.Content = "SuperRare名单导入成功";
+                LogRecord.Add("尝试导入Super Rare名单：成功");
 
                 SaveStatus.IsOpen = true;
                 await Task.Delay(3000);
@@ -498,7 +533,8 @@ namespace DrawLosAssistantWinUI3
             ImportRCard.IsEnabled = RareToggle.IsOn;
             ExportRCard.IsEnabled = RareToggle.IsOn;
             RareBGA.IsEnabled = RareToggle.IsOn;
-
+            if (IsLoaded) LogRecord.Add("Rare名单已" +  (RareToggle.IsOn ? "启用" : "禁用"));
+            ApplicationData.Current.LocalSettings.Values["IsRareEnabled"] = RareToggle.IsOn;
         }
 
         private void SuperRareToggle_Toggled(object sender, RoutedEventArgs e)
@@ -508,6 +544,7 @@ namespace DrawLosAssistantWinUI3
             ImportSRCard.IsEnabled = SuperRareToggle.IsOn;
             ExportSRCard.IsEnabled = SuperRareToggle.IsOn;
             SuperRareBGA.IsEnabled = SuperRareToggle.IsOn;
+           if (IsLoaded) LogRecord.Add("Super Rare名单已" + (SuperRareToggle.IsOn ? "启用" : "禁用"));
 
             ApplicationData.Current.LocalSettings.Values["IsSuperRareEnabled"] = SuperRareToggle.IsOn;
         }
@@ -521,22 +558,22 @@ namespace DrawLosAssistantWinUI3
                     LocalSettings.Values["AudioType"] = "External";
                     AudioLocationCard.IsEnabled = false;
                     break;
+
                 case "外置音频":
                     LocalSettings.Values["AudioType"] = "Internal";
                     AudioLocationCard.IsEnabled = true;
                     break;
+
                 default:
                     LocalSettings.Values["AudioType"] = "External";
                     AudioTypeComboBox.SelectedItem = "外置音频";
                     AudioLocationCard.IsEnabled = true;
                     break;
             }
-
         }
 
         private void SettingsCard_Loaded(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void AudioTypeCard_Loaded(object sender, RoutedEventArgs e)
@@ -549,10 +586,12 @@ namespace DrawLosAssistantWinUI3
                     AudioTypeComboBox.SelectedItem = "外置音频";
                     AudioLocationCard.IsEnabled = true;
                     break;
+
                 case "Internal":
                     AudioTypeComboBox.SelectedItem = "视频内嵌音频";
                     AudioLocationCard.IsEnabled = false;
                     break;
+
                 default:
                     LocalSettings.Values["AudioType"] = "External";
                     AudioTypeComboBox.SelectedItem = "外置音频";
@@ -563,15 +602,16 @@ namespace DrawLosAssistantWinUI3
 
         private async void SetPassword_Click(object sender, RoutedEventArgs e)
         {
+            LogRecord.Add("密码已设置");
             PasswordGeneration pwdWnd = new PasswordGeneration();
             pwdWnd.XamlRoot = this.XamlRoot;
 
             await pwdWnd.ShowAsync();
-
         }
 
         private async void DeletePwd_Click(object sender, RoutedEventArgs e)
         {
+            LogRecord.Add("密码已删除");
             ApplicationData.Current.LocalSettings.Values.Remove("Password");
             ApplicationData.Current.LocalSettings.Values["IsSettingsVisible"] = "1";
             SaveStatus.Content = "应用将在3秒后重启";
@@ -579,6 +619,91 @@ namespace DrawLosAssistantWinUI3
             await Task.Delay(3000);
             await CoreApplication.RequestRestartAsync("");
             Application.Current.Exit();
+        }
+
+        private async void ExportLog_Click(object sender, RoutedEventArgs e)
+        {
+            var picker = new FileSavePicker();
+            picker.DefaultFileExtension = ".txt";
+            picker.FileTypeChoices.Add("Text File", new List<string> { ".txt" });
+            WinRT.Interop.InitializeWithWindow.Initialize(picker, hWnd);
+
+            StorageFile file = await picker.PickSaveFileAsync();
+
+            if (file != null)
+            {
+                CachedFileManager.DeferUpdates(file);
+                File.WriteAllText(file.Path, LogRecord.Export());
+                var status = await CachedFileManager.CompleteUpdatesAsync(file);
+
+                if (status == FileUpdateStatus.Complete)
+                {
+                    SaveStatus.Severity = InfoBarSeverity.Success;
+                    SaveStatus.Title = "保存成功";
+                    SaveStatus.Content = "日志保存成功";
+
+                    SaveStatus.IsOpen = true;
+                    await Task.Delay(3000);
+
+                    SaveStatus.IsOpen = false;
+                }
+                else if (status == FileUpdateStatus.Failed)
+                {
+                    SaveStatus.Severity = InfoBarSeverity.Error;
+                    SaveStatus.Title = "保存失败";
+                    SaveStatus.Content = "请检查是否有对应权限，文件是否被占用等";
+
+                    SaveStatus.IsOpen = true;
+                    await Task.Delay(3000);
+
+                    SaveStatus.IsOpen = false;
+                }
+            }
+        }
+
+        private async void ExportLogDev_Click(object sender, RoutedEventArgs e)
+        {
+            var picker = new FileSavePicker();
+            picker.DefaultFileExtension = ".json";
+            picker.FileTypeChoices.Add("Json File", new List<string> { ".json" });
+            WinRT.Interop.InitializeWithWindow.Initialize(picker, hWnd);
+
+            StorageFile file = await picker.PickSaveFileAsync();
+
+            if (file != null)
+            {
+                CachedFileManager.DeferUpdates(file);
+                File.WriteAllText(file.Path, LogRecord.ExportDev());
+                var status = await CachedFileManager.CompleteUpdatesAsync(file);
+
+                if (status == FileUpdateStatus.Complete)
+                {
+                    SaveStatus.Severity = InfoBarSeverity.Success;
+                    SaveStatus.Title = "保存成功";
+                    SaveStatus.Content = "Debug日志保存成功";
+
+                    SaveStatus.IsOpen = true;
+                    await Task.Delay(3000);
+
+                    SaveStatus.IsOpen = false;
+                }
+                else if (status == FileUpdateStatus.Failed)
+                {
+                    SaveStatus.Severity = InfoBarSeverity.Error;
+                    SaveStatus.Title = "保存失败";
+                    SaveStatus.Content = "请检查是否有对应权限，文件是否被占用等";
+
+                    SaveStatus.IsOpen = true;
+                    await Task.Delay(3000);
+
+                    SaveStatus.IsOpen = false;
+                }
+            }
+        }
+
+        private void ClearLog_Click(object sender, RoutedEventArgs e)
+        {
+            LogRecord.Reset();
         }
     }
 }

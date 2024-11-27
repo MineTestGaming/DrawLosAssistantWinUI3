@@ -24,7 +24,6 @@ namespace DrawLosAssistantWinUI3
         {
             this.InitializeComponent();
 
-            
             if (!LoadingBreak)
             {
                 MainFrame.Navigate(typeof(Homepage));
@@ -36,14 +35,18 @@ namespace DrawLosAssistantWinUI3
             }
 
             // 初始化部分设置
+            LogRecord.Initialize(); 
+            LogRecord.DelayUpdate = true;
             if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("AudioType"))
             {
                 ApplicationData.Current.LocalSettings.Values["AudioType"] = "External";
+                LogRecord.Add("音频选项被重置，疑似应用被重置");
             }
 
             if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("IsSettingsVisible"))
             {
                 ApplicationData.Current.LocalSettings.Values["IsSettingsVisible"] = "1";
+                LogRecord.Add("设置可见性选项被重置，疑似应用被重置");
             }
             else if (ApplicationData.Current.LocalSettings.Values["IsSettingsVisible"].ToString() == "0")
             {
@@ -53,11 +56,18 @@ namespace DrawLosAssistantWinUI3
             if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("IsRareEnabled"))
             {
                 ApplicationData.Current.LocalSettings.Values["IsRareEnabled"] = true;
+                LogRecord.Add("Rare名单选项被重置，疑似应用被重置");
             }
+            
+            LogRecord.DelayUpdate = false;
+
             if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("IsSuperRareEnabled"))
             {
                 ApplicationData.Current.LocalSettings.Values["IsSuperRareEnabled"] = true;
+                LogRecord.Add("Super Rare选项被重置，疑似应用被重置");
             }
+
+
 
             if ((!ApplicationData.Current.LocalSettings.Values.ContainsKey("RefreshedVer") &&
                 ApplicationData.Current.LocalSettings.Values["RefreshVer"] != null &&
@@ -65,7 +75,6 @@ namespace DrawLosAssistantWinUI3
                 !ApplicationData.Current.LocalSettings.Values.ContainsKey("IsSettingsVisible")) ||
                 RefreshDebug)
             {
-
                 ApplicationData.Current.LocalSettings.Values.Clear();
 
                 ApplicationData.Current.LocalSettings.Values["RefreshVer"] = true;
@@ -94,17 +103,16 @@ namespace DrawLosAssistantWinUI3
                     case "Gacha":
                         MainFrame.Navigate(typeof(Gacha));
                         break;
+                    case "Log":
+                        MainFrame.Navigate(typeof(LogPage));
+                        break;
                 }
             }
         }
 
         private void Window_Activated(object sender, WindowActivatedEventArgs args)
         {
-#if DEBUG
-            DebugOption.Visibility = Visibility.Visible;
-#endif
-
-            if (!LoadingBreak) Nav.SelectedItem = Nav.MenuItems.OfType<Microsoft.UI.Xaml.Controls.NavigationViewItem>().First();
+           
         }
 
         private async void RestartApp(XamlRoot root)
@@ -116,6 +124,11 @@ namespace DrawLosAssistantWinUI3
 
         private void Nav_Loaded(object sender, RoutedEventArgs e)
         {
+#if DEBUG
+            DebugOption.Visibility = Visibility.Visible;
+            LogRecord.Add("尝试以Debug标签启动");
+#endif
+            if (!LoadingBreak) Nav.SelectedItem = Nav.MenuItems.OfType<Microsoft.UI.Xaml.Controls.NavigationViewItem>().First();
             if (LoadingBreak) { RestartApp(this.Content.XamlRoot); }
         }
 
@@ -123,6 +136,7 @@ namespace DrawLosAssistantWinUI3
         {
             var CmdPromptDialog = new CommandPrompt();
             CmdPromptDialog.XamlRoot = Nav.XamlRoot;
+            LogRecord.Add("进入命令窗口");
 
             await CmdPromptDialog.ShowAsync();
         }

@@ -1,3 +1,4 @@
+using DrawLosAssistantWinUI3.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -37,11 +38,13 @@ namespace DrawLosAssistantWinUI3
                 PasswordConfirm.Visibility = Visibility.Collapsed;
                 EncryptedFrame.Visibility = Visibility.Visible;
                 EncryptedFrame.Navigate(typeof(NewSettings));
+                LogRecord.Add("密码正确");
             }
             else
             {
                 WrongPwd.Visibility = Visibility.Visible;
                 Password.Password = String.Empty;
+                LogRecord.Add("密码错误");
             }
         }
     }

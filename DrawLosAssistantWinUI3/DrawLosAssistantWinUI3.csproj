@@ -24,6 +24,7 @@
 	<None Remove="Gacha.xaml" />
 	<None Remove="Homepage.xaml" />
 	<None Remove="LockdownConfirm.xaml" />
+	<None Remove="LogPage.xaml" />
 	<None Remove="NewSettings.xaml" />
 	<None Remove="PasswordGeneration.xaml" />
 	<None Remove="PasswordVerify.xaml" />
@@ -70,6 +71,9 @@
     <None Update="AppIcon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="LogPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>

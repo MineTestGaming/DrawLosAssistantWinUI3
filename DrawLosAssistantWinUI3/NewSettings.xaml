@@ -80,6 +80,7 @@
                         </tk:SettingsCard>
                     </tk:SettingsExpander.Items>
                 </tk:SettingsExpander>
+
                 <TextBlock Text="自定义配置" FontWeight="Bold" Margin="1,10,0,10" />
                 <tk:SettingsExpander IsExpanded="False" Header="音频选项" HeaderIcon="{ui:SymbolIcon Symbol=MusicInfo}">
                     <tk:SettingsExpander.Items>
@@ -108,6 +109,7 @@
                         </tk:SettingsCard>
                     </tk:SettingsExpander.Items>
                 </tk:SettingsExpander>
+
                 <TextBlock Text="其他配置" FontWeight="Bold" Margin="1,10,0,10" />
                 <tk:SettingsCard HeaderIcon="{ui:SymbolIcon Symbol=Clear}" Header="锁定名单并隐藏设置" Description="即将弃用，替代方案正在开发的路上">
                     <Button Content="锁定" Name="Lockdown" Click="Lockdown_Click" MinWidth="125" />
@@ -121,13 +123,29 @@
                 <tk:SettingsCard HeaderIcon="{ui:SymbolIcon Symbol=Rotate}" Header="重置">
                     <Button x:Name="Clear" Content="重置" Click="Clear_Click" MinWidth="125" />
                 </tk:SettingsCard>
+
+                <TextBlock Text="日志" FontWeight="Bold" Margin="1,10,0,10" />
+                <tk:SettingsCard HeaderIcon="{ui:SymbolIcon Symbol=Document}" Header="导出日志">
+                    <tk:SettingsCard.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="ExportLogDev" Content="导出(Development Use)" Click="ExportLogDev_Click" MinWidth="125" Visibility="Collapsed" />
+                            <Button x:Name="ExportLog" Content="导出" Click="ExportLog_Click" MinWidth="125" />
+                        </StackPanel>
+                    </tk:SettingsCard.Content>
+                </tk:SettingsCard>
+                <tk:SettingsCard Name="ClearLogCard" HeaderIcon="{ui:SymbolIcon Symbol=Rotate}" Header="重置日志" Description="重置日志需先设置密码" IsEnabled="False">
+                    <Button x:Name="ClearLog" Content="重置" Click="ClearLog_Click" MinWidth="125" />
+                </tk:SettingsCard>
+                
                 <TextBlock Text="关于" FontWeight="Bold" Margin="1,10,0,10" />
                 <tk:SettingsExpander HeaderIcon="{ui:BitmapIcon Source=ms-appx:///AppIcon.ico}" Header="抽签助手" Description="© 2024 MineTestGaming" IsExpanded="False">
                     <tk:SettingsExpander.Items>
                         <tk:SettingsCard>
                             <tk:SettingsCard.Header>
-                                <HyperlinkButton Content="项目Github主页" NavigateUri="https://github.com/MineTestGaming/DrawLosAssistantWinUI3" />
-                                <HyperlinkButton Content="发送反馈" NavigateUri="https://github.com/MineTestGaming/DrawLosAssistantWinUI3/issues" />
+                                <StackPanel Orientation="Vertical">
+                                    <HyperlinkButton Content="项目Github主页" NavigateUri="https://github.com/MineTestGaming/DrawLosAssistantWinUI3" />
+                                    <HyperlinkButton Content="发送反馈" NavigateUri="https://github.com/MineTestGaming/DrawLosAssistantWinUI3/issues" />
+                                </StackPanel>
                             </tk:SettingsCard.Header>
                         </tk:SettingsCard>
                     </tk:SettingsExpander.Items>
