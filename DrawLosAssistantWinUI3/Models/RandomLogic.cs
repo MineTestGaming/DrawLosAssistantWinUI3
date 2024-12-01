@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using static DrawLosAssistantWinUI3.Models.NameList;
 
 namespace DrawLosAssistantWinUI3.Models
 {
@@ -14,7 +15,7 @@ namespace DrawLosAssistantWinUI3.Models
             NameList.Load();
 
             Random random = new Random();
-            int MaxNum = NameList.SuperRareList.Count - 1;
+            int MaxNum = NameList.nameList[(int)GachaType.SuperRare].Count - 1;
             int resultNum;
             resultNum = 0;
 
@@ -24,7 +25,7 @@ namespace DrawLosAssistantWinUI3.Models
                 if (SRGachaGetIds.Count == MaxNum)
                 {
                     SRGachaGetIds.Clear();
-                    return NameList.SuperRareList[MaxNum];
+                    return NameList.nameList[(int)GachaType.SuperRare][MaxNum];
                 }
                 if (SRGachaGetIds.Count > MaxNum)
                 {
@@ -36,8 +37,8 @@ namespace DrawLosAssistantWinUI3.Models
                     ResultGet = true;
                 }
             }
-            LogRecord.Add("本次抽中Super Rare名单中的" + NameList.SuperRareList[resultNum]);
-            return NameList.SuperRareList[resultNum];
+            LogRecord.Add("本次抽中Super Rare名单中的" + NameList.nameList[(int)GachaType.SuperRare][resultNum]);
+            return NameList.nameList[(int)GachaType.SuperRare][resultNum];
         }
 
         public static string RareRandom()
@@ -45,7 +46,7 @@ namespace DrawLosAssistantWinUI3.Models
             NameList.Load();
 
             Random random = new Random();
-            int MaxNum = NameList.RareList.Count - 1;
+            int MaxNum = NameList.nameList[(int)GachaType.Rare].Count - 1;
             int resultNum;
             resultNum = 0;
 
@@ -55,7 +56,7 @@ namespace DrawLosAssistantWinUI3.Models
                 if (RGachaGetIds.Count == MaxNum)
                 {
                     RGachaGetIds.Clear();
-                    return NameList.RareList[MaxNum];
+                    return NameList.nameList[(int)GachaType.Rare][MaxNum];
                 }
                 if (RGachaGetIds.Count > MaxNum)
                 {
@@ -67,8 +68,8 @@ namespace DrawLosAssistantWinUI3.Models
                     ResultGet = true;
                 }
             }
-            LogRecord.Add("本次抽中Rare名单中的" + NameList.RareList[resultNum]);
-            return NameList.RareList[resultNum];
+            LogRecord.Add("本次抽中Rare名单中的" + NameList.nameList[(int)GachaType.Rare][resultNum]);
+            return NameList.nameList[(int)GachaType.Rare][resultNum];
         }
 
         public static string CommonRandom()
@@ -76,7 +77,7 @@ namespace DrawLosAssistantWinUI3.Models
             NameList.Load();
 
             Random random = new Random();
-            int MaxNum = NameList.Name.Count - 1;
+            int MaxNum = NameList.nameList[(int)GachaType.Normal].Count - 1;
             int resultNum;
             resultNum = 0;
 
@@ -86,7 +87,7 @@ namespace DrawLosAssistantWinUI3.Models
                 if (CommonGachaGetIds.Count == MaxNum)
                 {
                     CommonGachaGetIds.Clear();
-                    return NameList.Name[MaxNum];
+                    return NameList.nameList[(int)GachaType.Normal][MaxNum];
                 }
                 if (CommonGachaGetIds.Count > MaxNum)
                 {
@@ -98,8 +99,8 @@ namespace DrawLosAssistantWinUI3.Models
                     ResultGet = true;
                 }
             }
-            LogRecord.Add("本次抽中普通名单中的" + NameList.Name[resultNum]);
-            return NameList.Name[resultNum];
+            LogRecord.Add("本次抽中普通名单中的" + nameList[(int)GachaType.Normal][resultNum]);
+            return NameList.nameList[(int)GachaType.Normal][resultNum];
         }
 
         public static string RandomLevel()

@@ -35,9 +35,6 @@
                         <tk:SettingsCard Header="从txt导入">
                             <Button x:Name="ImportFromTxt" Content="浏览" Click="ImportFromTxt_Click" MinWidth="125" />
                         </tk:SettingsCard>
-                        <tk:SettingsCard Header="导出为Json">
-                            <Button x:Name="Export" Content="导出" Click="Export_Click" MinWidth="125" />
-                        </tk:SettingsCard>
                     </tk:SettingsExpander.Items>
                 </tk:SettingsExpander>
                 <tk:SettingsExpander IsExpanded="False" Header="Rare名单" HeaderIcon="{ui:SymbolIcon Symbol=List}" Name="RareListOpt">
@@ -54,9 +51,6 @@
                         </tk:SettingsCard>
                         <tk:SettingsCard Header="从txt导入" Name="ImportRtxtCard">
                             <Button x:Name="RareImportFromTxt" Content="浏览" Click="RareImportFromTxt_Click" MinWidth="125" />
-                        </tk:SettingsCard>
-                        <tk:SettingsCard Header="导出为Json" Name="ExportRCard">
-                            <Button x:Name="ExportR" Content="导出" Click="ExportR_Click" MinWidth="125" />
                         </tk:SettingsCard>
                     </tk:SettingsExpander.Items>
                 </tk:SettingsExpander>
@@ -75,11 +69,18 @@
                         <tk:SettingsCard Header="从txt导入" Name="ImportSRtxtCard">
                             <Button x:Name="SuperRareImportFromTxt" Content="浏览" Click="SuperRareImportFromTxt_Click" MinWidth="125" />
                         </tk:SettingsCard>
-                        <tk:SettingsCard Header="导出为Json" Name="ExportSRCard">
-                            <Button x:Name="ExportSR" Content="导出" Click="ExportSR_Click" MinWidth="125" />
-                        </tk:SettingsCard>
                     </tk:SettingsExpander.Items>
                 </tk:SettingsExpander>
+                <tk:SettingsCard Header="导入新版本导出的Json名单" HeaderIcon="{ui:SymbolIcon Symbol=OpenFile}">
+                    <tk:SettingsCard.Content>
+                        <Button x:Name="ImportJson" Content="导入" Click="ImportJson_Click" MinWidth="125" />
+                    </tk:SettingsCard.Content>
+                </tk:SettingsCard>
+                <tk:SettingsCard Header="以Json格式导出所有名单" HeaderIcon="{ui:SymbolIcon Symbol=Save}">
+                    <tk:SettingsCard.Content>
+                        <Button x:Name="Export" Content="导出" Click="Export_Click" MinWidth="125"/>
+                    </tk:SettingsCard.Content>
+                </tk:SettingsCard>
 
                 <TextBlock Text="自定义配置" FontWeight="Bold" Margin="1,10,0,10" />
                 <tk:SettingsExpander IsExpanded="False" Header="音频选项" HeaderIcon="{ui:SymbolIcon Symbol=MusicInfo}">

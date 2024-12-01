@@ -1,13 +1,20 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Xml.Linq;
+using Windows.Gaming.Preview.GamesEnumeration;
 
 namespace DrawLosAssistantWinUI3.Models
 {
     public class NameList
     {
-        public static List<string> Name = new List<string>();
-        public static List<string> RareList = new List<string>();
-        public static List<string> SuperRareList = new List<string>();
+        public enum GachaType
+        {
+            Normal,
+            Rare,
+            SuperRare
+        }
+
+        public static List<string>[] nameList = new List<string>[3];
 
         public static void InitializeList()
         {
@@ -18,64 +25,63 @@ namespace DrawLosAssistantWinUI3.Models
 
         public static void InitializeNormalList()
         {
+            if (nameList[(int)GachaType.Normal] == null)
+            {
+                nameList[(int)GachaType.Normal] = new List<string>();
+            }
             // Normal List
-            Name.Clear();
-            Name.Add("茅森月歌");
-            Name.Add("和泉由希");
-            Name.Add("逢川惠");
-            Name.Add("東城司");
-            Name.Add("朝倉可憐");
-            Name.Add("國見玉");
+
+            nameList[(int)GachaType.Normal].Clear();
+            nameList[(int)GachaType.Normal].Add("茅森月歌");
+            nameList[(int)GachaType.Normal].Add("和泉由希");
+            nameList[(int)GachaType.Normal].Add("逢川惠");
+            nameList[(int)GachaType.Normal].Add("東城司");
+            nameList[(int)GachaType.Normal].Add("朝倉可憐");
+            nameList[(int)GachaType.Normal].Add("國見玉");
             Save("Normal");
         }
 
         public static void InitializeRareList()
         {
+            if (nameList[(int)GachaType.Rare] == null)
+            {
+                nameList[(int)GachaType.Rare] = new List<string>();
+            }
             // Rare List
-            RareList.Clear();
-            RareList.Add("ペコリム");
+            nameList[(int)GachaType.Rare].Clear();
+            nameList[(int)GachaType.Rare].Add("ペコリム");
 
             Save("Rare");
         }
 
         public static void InitializeSuperRareList()
         {
+            if (nameList[(int)GachaType.SuperRare] == null)
+            {
+                nameList[(int)GachaType.SuperRare] = new List<string>();
+            }
             // Normal List
-            SuperRareList.Clear();
-            SuperRareList.Add("手塚咲");
-            SuperRareList.Add("七瀨七海");
-            SuperRareList.Add("淺見真紀子");
+            nameList[(int)GachaType.SuperRare].Clear();
+            nameList[(int)GachaType.SuperRare].Add("手塚咲");
+            nameList[(int)GachaType.SuperRare].Add("七瀨七海");
+            nameList[(int)GachaType.SuperRare].Add("淺見真紀子");
             Save("Super Rare");
         }
 
         public static int Count
-        { get { return Name.Count; } }
+        { get { return nameList[(int)GachaType.Normal].Count; } }
 
         public static string GetName(int index)
-        { return Name[index]; }
+        { return nameList[(int)GachaType.Normal][index]; }
 
         public static void Save(string type)
         {
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             switch (type)
             {
-                case "Normal":
-                    localSettings.Values["NameList"] = JsonConvert.SerializeObject(Name);
-                    break;
-
-                case "Rare":
-                    localSettings.Values["RareList"] = JsonConvert.SerializeObject(RareList);
-                    break;
-
-                case "Super Rare":
-                    localSettings.Values["SuperRareList"] = JsonConvert.SerializeObject(SuperRareList);
-                    break;
-
                 case "All":
                 default:
-                    localSettings.Values["NameList"] = JsonConvert.SerializeObject(Name);
-                    localSettings.Values["RareList"] = JsonConvert.SerializeObject(RareList);
-                    localSettings.Values["SuperRareList"] = JsonConvert.SerializeObject(SuperRareList);
+                    localSettings.Values["UnifiedGachaList"] = JsonConvert.SerializeObject(nameList);
                     break;
             }
         }
@@ -83,30 +89,38 @@ namespace DrawLosAssistantWinUI3.Models
         public static void Load()
         {
             var localeSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+
+            if (localeSettings.Values.ContainsKey("UnifiedGachaList"))
+            {
+                nameList = JsonConvert.DeserializeObject<List<string>[]>((string)localeSettings.Values["UnifiedGachaList"]);
+            }
+            else
+            {
+                InitializeList();
+            }
+
+            // Backward Compatibility
             if (localeSettings.Values.ContainsKey("NameList"))
             {
-                Name = JsonConvert.DeserializeObject<List<string>>((string)localeSettings.Values["NameList"]);
+                nameList[(int)GachaType.Normal] = JsonConvert.DeserializeObject<List<string>>((string)localeSettings.Values["NameList"]);
+                localeSettings.Values.Remove("NameList");
+                Save("");
             }
-            else
-            {
-                InitializeNormalList();
-            }
+
             if (localeSettings.Values.ContainsKey("RareList"))
             {
-                RareList = JsonConvert.DeserializeObject<List<string>>((string)localeSettings.Values["RareList"]);
+                nameList[(int)GachaType.Rare] = JsonConvert.DeserializeObject<List<string>>((string)localeSettings.Values["RareList"]);
+                localeSettings.Values.Remove("RareList");
+                Save("");
             }
-            else
-            {
-                InitializeRareList();
-            }
+
             if (localeSettings.Values.ContainsKey("SuperRareList"))
             {
-                SuperRareList = JsonConvert.DeserializeObject<List<string>>((string)localeSettings.Values["SuperRareList"]);
+                nameList[(int)GachaType.SuperRare] = JsonConvert.DeserializeObject<List<string>>((string)localeSettings.Values["SuperRareList"]);
+                localeSettings.Values.Remove("SuperRareList");
+                Save("");
             }
-            else
-            {
-                InitializeSuperRareList();
-            }
+            
         }
     }
 }

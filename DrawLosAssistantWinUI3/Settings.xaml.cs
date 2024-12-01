@@ -46,21 +46,21 @@ namespace DrawLosAssistantWinUI3
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            NameList.Name.Add(Input.Text);
+            NameList.nameList[(int)NameList.GachaType.Normal].Add(Input.Text);
             NameList.Save("Normal");
             Input.Text = "";
         }
 
         private void AddRare_Click(object sender, RoutedEventArgs e)
         {
-            NameList.RareList.Add(Input.Text);
+            NameList.nameList[(int)NameList.GachaType.Rare].Add(Input.Text);
             NameList.Save("Rare");
             InputR.Text = "";
         }
 
         private void AddSuperRare_Click(object sender, RoutedEventArgs e)
         {
-            NameList.SuperRareList.Add(InputSR.Text);
+            NameList.nameList[(int)NameList.GachaType.SuperRare].Add(InputSR.Text);
             NameList.Save("Super Rare");
             InputSR.Text = "";
         }

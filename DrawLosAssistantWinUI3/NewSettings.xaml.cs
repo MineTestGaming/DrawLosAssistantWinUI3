@@ -51,7 +51,6 @@ namespace DrawLosAssistantWinUI3
                 AddListCardR.IsEnabled = RareToggle.IsOn;
                 ImportRtxtCard.IsEnabled = false;
                 ImportRCard.IsEnabled = false;
-                ExportRCard.IsEnabled = false;
                 RareBGA.IsEnabled = RareToggle.IsOn;
             }
 
@@ -64,7 +63,6 @@ namespace DrawLosAssistantWinUI3
                 AddListCardSR.IsEnabled = false;
                 ImportSRtxtCard.IsEnabled = false;
                 ImportSRCard.IsEnabled = false;
-                ExportSRCard.IsEnabled = false;
                 SuperRareBGA.IsEnabled = SuperRareToggle.IsOn;
             }
             if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Password"))
@@ -76,29 +74,26 @@ namespace DrawLosAssistantWinUI3
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            NameList.Name.Add(Input.Text);
+            NameList.nameList[(int)NameList.GachaType.Normal].Add(Input.Text);
             NameList.Save("Normal");
             LogRecord.Add("普通名单添加 " + Input.Text);
             Input.Text = "";
-            
         }
 
         private void AddRare_Click(object sender, RoutedEventArgs e)
         {
-            NameList.RareList.Add(InputR.Text);
+            NameList.nameList[(int)NameList.GachaType.Rare].Add(Input.Text);
             NameList.Save("Rare");
             LogRecord.Add("Rare名单添加 " + InputR.Text);
             InputR.Text = "";
-            
         }
 
         private void AddSuperRare_Click(object sender, RoutedEventArgs e)
         {
-            NameList.SuperRareList.Add(InputSR.Text);
+            NameList.nameList[(int)NameList.GachaType.SuperRare].Add(InputSR.Text);
             NameList.Save("Super Rare");
             LogRecord.Add("Super Rare名单添加 " + InputSR.Text);
             InputSR.Text = "";
-            
         }
 
         private async void AudioLocation_Click(object sender, RoutedEventArgs e)
@@ -156,15 +151,15 @@ namespace DrawLosAssistantWinUI3
             {
                 CachedFileManager.DeferUpdates(exportFile);
 
-                await FileIO.WriteTextAsync(exportFile, localSettings.Values["NameList"].ToString());
+                await FileIO.WriteTextAsync(exportFile, localSettings.Values["UnifiedGachaList"].ToString());
                 FileUpdateStatus updateStatus = await CachedFileManager.CompleteUpdatesAsync(exportFile);
                 if (updateStatus == FileUpdateStatus.Complete)
                 {
                     // 导出成功Banner
                     SaveStatus.Severity = InfoBarSeverity.Success;
                     SaveStatus.Title = "保存成功";
-                    SaveStatus.Content = "普通名单保存成功";
-                    LogRecord.Add("尝试导出普通名单：成功");
+                    SaveStatus.Content = "名单保存成功";
+                    LogRecord.Add("尝试导出名单：成功");
                     SaveStatus.IsOpen = true;
 
                     await Task.Delay(3000);
@@ -176,97 +171,7 @@ namespace DrawLosAssistantWinUI3
                     SaveStatus.Severity = InfoBarSeverity.Error;
                     SaveStatus.Title = "保存失败";
                     SaveStatus.Content = "请检查是否有对应权限，文件是否被占用等";
-                    LogRecord.Add("尝试导出普通名单：失败");
-
-                    SaveStatus.IsOpen = true;
-                    await Task.Delay(3000);
-
-                    SaveStatus.IsOpen = false;
-                }
-            }
-        }
-
-        private async void ExportR_Click(object sender, RoutedEventArgs e)
-        {
-            var ExportLocationPicker = new Windows.Storage.Pickers.FileSavePicker();
-            ExportLocationPicker.SuggestedFileName = "RareNameList";
-            ExportLocationPicker.FileTypeChoices.Add("Json Files", new List<string>() { ".json" });
-            var localSettings = ApplicationData.Current.LocalSettings;
-            WinRT.Interop.InitializeWithWindow.Initialize(ExportLocationPicker, hWnd);
-
-            StorageFile exportFile = await ExportLocationPicker.PickSaveFileAsync();
-
-            if (exportFile != null)
-            {
-                CachedFileManager.DeferUpdates(exportFile);
-
-                await FileIO.WriteTextAsync(exportFile, localSettings.Values["RareList"].ToString());
-                FileUpdateStatus updateStatus = await CachedFileManager.CompleteUpdatesAsync(exportFile);
-                if (updateStatus == FileUpdateStatus.Complete)
-                {
-                    // 导出成功Banner
-                    SaveStatus.Severity = InfoBarSeverity.Success;
-                    SaveStatus.Title = "保存成功";
-                    SaveStatus.Content = "R名单保存成功";
-                    LogRecord.Add("尝试导出Rare名单：成功");
-
-                    SaveStatus.IsOpen = true;
-                    await Task.Delay(3000);
-
-                    SaveStatus.IsOpen = false;
-                }
-                if (updateStatus == FileUpdateStatus.Failed)
-                {
-                    // 导出失败Banner
-                    SaveStatus.Severity = InfoBarSeverity.Error;
-                    SaveStatus.Title = "保存失败";
-                    SaveStatus.Content = "请检查是否有对应权限，文件是否被占用等";
-
-                    LogRecord.Add("尝试导出Rare名单：失败");
-                    SaveStatus.IsOpen = true;
-                    await Task.Delay(3000);
-
-                    SaveStatus.IsOpen = false;
-                }
-            }
-        }
-
-        private async void ExportSR_Click(object sender, RoutedEventArgs e)
-        {
-            var ExportLocationPicker = new Windows.Storage.Pickers.FileSavePicker();
-            ExportLocationPicker.SuggestedFileName = "SuperRareNameList";
-            ExportLocationPicker.FileTypeChoices.Add("Json Files", new List<string>() { ".json" });
-            var localSettings = ApplicationData.Current.LocalSettings;
-            WinRT.Interop.InitializeWithWindow.Initialize(ExportLocationPicker, hWnd);
-
-            StorageFile exportFile = await ExportLocationPicker.PickSaveFileAsync();
-
-            if (exportFile != null)
-            {
-                CachedFileManager.DeferUpdates(exportFile);
-
-                await FileIO.WriteTextAsync(exportFile, localSettings.Values["SuperRareList"].ToString());
-                FileUpdateStatus updateStatus = await CachedFileManager.CompleteUpdatesAsync(exportFile);
-                if (updateStatus == FileUpdateStatus.Complete)
-                {
-                    // 导出成功Banner
-                    SaveStatus.Severity = InfoBarSeverity.Success;
-                    SaveStatus.Title = "保存成功";
-                    SaveStatus.Content = "SR名单保存成功";
-                    LogRecord.Add("尝试导出Super Rare名单：成功");
-
-                    SaveStatus.IsOpen = true;
-                    await Task.Delay(3000);
-
-                    SaveStatus.IsOpen = false;
-                }
-                if (updateStatus == FileUpdateStatus.Failed)
-                {
-                    // 导出失败Banner
-                    SaveStatus.Severity = InfoBarSeverity.Error;
-                    SaveStatus.Title = "保存失败";
-                    SaveStatus.Content = "请检查是否有对应权限，文件是否被占用等";
-                    LogRecord.Add("尝试导出Super Rare名单：失败");
+                    LogRecord.Add("尝试导出名单：失败");
 
                     SaveStatus.IsOpen = true;
                     await Task.Delay(3000);
@@ -401,7 +306,6 @@ namespace DrawLosAssistantWinUI3
             LogRecord.Add("尝试导入普通视频");
             if (storageFile != null)
             {
-
                 localSettings.Values["NormalVideoPath"] = storageFile.Path;
                 LogRecord.Add("尝试导入普通视频：成功");
             }
@@ -531,9 +435,8 @@ namespace DrawLosAssistantWinUI3
             AddListCardR.IsEnabled = RareToggle.IsOn;
             ImportRtxtCard.IsEnabled = RareToggle.IsOn;
             ImportRCard.IsEnabled = RareToggle.IsOn;
-            ExportRCard.IsEnabled = RareToggle.IsOn;
             RareBGA.IsEnabled = RareToggle.IsOn;
-            if (IsLoaded) LogRecord.Add("Rare名单已" +  (RareToggle.IsOn ? "启用" : "禁用"));
+            if (IsLoaded) LogRecord.Add("Rare名单已" + (RareToggle.IsOn ? "启用" : "禁用"));
             ApplicationData.Current.LocalSettings.Values["IsRareEnabled"] = RareToggle.IsOn;
         }
 
@@ -542,9 +445,8 @@ namespace DrawLosAssistantWinUI3
             AddListCardSR.IsEnabled = SuperRareToggle.IsOn;
             ImportSRtxtCard.IsEnabled = SuperRareToggle.IsOn;
             ImportSRCard.IsEnabled = SuperRareToggle.IsOn;
-            ExportSRCard.IsEnabled = SuperRareToggle.IsOn;
             SuperRareBGA.IsEnabled = SuperRareToggle.IsOn;
-           if (IsLoaded) LogRecord.Add("Super Rare名单已" + (SuperRareToggle.IsOn ? "启用" : "禁用"));
+            if (IsLoaded) LogRecord.Add("Super Rare名单已" + (SuperRareToggle.IsOn ? "启用" : "禁用"));
 
             ApplicationData.Current.LocalSettings.Values["IsSuperRareEnabled"] = SuperRareToggle.IsOn;
         }
@@ -704,6 +606,31 @@ namespace DrawLosAssistantWinUI3
         private void ClearLog_Click(object sender, RoutedEventArgs e)
         {
             LogRecord.Reset();
+        }
+
+        private async void ImportJson_Click(object sender, RoutedEventArgs e)
+        {
+            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(App.m_window);
+            var picker = new Windows.Storage.Pickers.FileOpenPicker();
+            picker.FileTypeFilter.Add(".json");
+
+            WinRT.Interop.InitializeWithWindow.Initialize(picker, hWnd);
+
+            StorageFile selectedFile = await picker.PickSingleFileAsync();
+            if (selectedFile != null)
+            {
+                ApplicationData.Current.LocalSettings.Values["UnifiedGachaList"] = await FileIO.ReadTextAsync(selectedFile);
+
+                SaveStatus.Severity = InfoBarSeverity.Success;
+                SaveStatus.Title = "导入成功";
+                SaveStatus.Content = "统一名单导入成功";
+                LogRecord.Add("尝试导入统一名单：成功");
+
+                SaveStatus.IsOpen = true;
+                await Task.Delay(3000);
+
+                SaveStatus.IsOpen = false;
+            }
         }
     }
 }
