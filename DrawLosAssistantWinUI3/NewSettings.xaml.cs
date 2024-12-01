@@ -82,7 +82,7 @@ namespace DrawLosAssistantWinUI3
 
         private void AddRare_Click(object sender, RoutedEventArgs e)
         {
-            NameList.nameList[(int)NameList.GachaType.Rare].Add(Input.Text);
+            NameList.nameList[(int)NameList.GachaType.Rare].Add(InputR.Text);
             NameList.Save("Rare");
             LogRecord.Add("Rare名单添加 " + InputR.Text);
             InputR.Text = "";
