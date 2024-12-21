@@ -24,6 +24,8 @@ namespace DrawLosAssistantWinUI3
         {
             this.InitializeComponent();
 
+            ExtendsContentIntoTitleBar = true;
+
             if (!LoadingBreak)
             {
                 MainFrame.Navigate(typeof(Homepage));
@@ -132,7 +134,7 @@ namespace DrawLosAssistantWinUI3
             if (LoadingBreak) { RestartApp(this.Content.XamlRoot); }
         }
 
-        private async void SuperSecrectButton_Click(object sender, RoutedEventArgs e)
+        private async void SuperSecretButton_Click(object sender, RoutedEventArgs e)
         {
             var CmdPromptDialog = new CommandPrompt();
             CmdPromptDialog.XamlRoot = Nav.XamlRoot;

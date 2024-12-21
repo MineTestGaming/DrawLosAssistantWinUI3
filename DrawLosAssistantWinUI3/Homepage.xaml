@@ -11,6 +11,9 @@
     <RelativePanel>
         <TextBlock x:Name="Result" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" Text="研究生低效挑选器" FontSize="64" />
         <!--TextBlock x:Name="Level" RelativePanel.Below="Result" /-->
-        <Button RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Content="开始抽签" Margin="20" Name="Start" Click="Start_Click" />
+        <StackPanel RelativePanel.AlignRightWithPanel="True" Margin="20" RelativePanel.AlignBottomWithPanel="True" Orientation="Horizontal">
+            <Button Content="以小窗方式运行" Name="CompactOverlayMode" Click="CompactOverlayMode_OnClick" Margin="0,0,5,0"/>
+            <Button Content="开始抽签" Name="Start" Click="Start_Click" Margin="5,0,0,0"/>
+        </StackPanel>
     </RelativePanel>
 </Page>
