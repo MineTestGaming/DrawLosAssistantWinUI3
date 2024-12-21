@@ -40,6 +40,11 @@ namespace DrawLosAssistantWinUI3
             }
         }
 
+        private void FrameworkElement_OnLoaded(object sender, RoutedEventArgs e)
+        {
+           ExtendsContentIntoTitleBar = true;
+        }
+
         private void Picking_OnClick(object sender, RoutedEventArgs e)
         {
             Result.Text = RandomLogic.CommonRandom();
