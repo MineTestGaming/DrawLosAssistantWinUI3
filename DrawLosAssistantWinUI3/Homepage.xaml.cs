@@ -1,4 +1,6 @@
+using DrawLosAssistantWinUI3.FromWinUI3Gallery;
 using DrawLosAssistantWinUI3.Models;
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
@@ -21,6 +23,17 @@ namespace DrawLosAssistantWinUI3
         {
             // Level.Text = RandomLogic.RandomLevel();
             Result.Text = RandomLogic.CommonRandom();
+        }
+
+        private void CompactOverlayMode_OnClick(object sender, RoutedEventArgs e)
+        {
+            var window = new CompactOverlayPickup();
+            window.AppWindow.SetPresenter(AppWindowPresenterKind.CompactOverlay);
+            window.AppWindow.Show();
+            if (App.m_window.AppWindow.Presenter is OverlappedPresenter presenter)
+            {
+                presenter.Minimize();
+            }
         }
     }
 }

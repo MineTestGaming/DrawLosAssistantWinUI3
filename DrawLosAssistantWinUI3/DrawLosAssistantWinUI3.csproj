@@ -21,6 +21,7 @@
 	<None Remove="BlankPage1.xaml" />
 	<None Remove="BlankPage2.xaml" />
 	<None Remove="CommandPrompt.xaml" />
+	<None Remove="CompactOverlayPickup.xaml" />
 	<None Remove="Gacha.xaml" />
 	<None Remove="Homepage.xaml" />
 	<None Remove="LockdownConfirm.xaml" />
@@ -71,6 +72,9 @@
     <None Update="AppIcon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="CompactOverlayPickup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="LogPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
