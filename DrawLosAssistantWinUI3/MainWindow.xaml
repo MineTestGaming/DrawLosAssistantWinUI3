@@ -8,6 +8,9 @@
     Title="抽签助手"
     mc:Ignorable="d"
     Activated="Window_Activated">
+    <Window.SystemBackdrop>
+        <MicaBackdrop/>
+    </Window.SystemBackdrop>
 
     <NavigationView Name="Nav" Loaded="Nav_Loaded" ItemInvoked="Nav_ItemInvoked" SelectedItem="Home" IsBackButtonVisible="Collapsed" PaneTitle="抽签助手">
         <NavigationView.MenuItems>

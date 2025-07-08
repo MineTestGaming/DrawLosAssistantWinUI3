@@ -9,13 +9,15 @@
     mc:Ignorable="d"
     Closed="CompactOverlayPickup_OnClosed"
     Title="CompactOverlayPickup">
-
+    <Window.SystemBackdrop>
+        <DesktopAcrylicBackdrop/>
+    </Window.SystemBackdrop>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBlock Name="Result" FontSize="56" Text="点击“开始”按钮以继续" TextWrapping="WrapWholeWords" HorizontalTextAlignment="Center" VerticalAlignment="Center"/>
-        <Button Grid.Row="1" Content="开始" Name="Picking" Click="Picking_OnClick" HorizontalAlignment="Right" Margin="20"/>
+        <TextBlock Name="Result" FontSize="56" Text="点击“开始”按钮以继续" TextWrapping="WrapWholeWords" HorizontalTextAlignment="Center" VerticalAlignment="Center" />
+        <Button Grid.Row="1" Content="开始" Name="Picking" Click="Picking_OnClick" HorizontalAlignment="Right" Margin="20" />
     </Grid>
 </Window>

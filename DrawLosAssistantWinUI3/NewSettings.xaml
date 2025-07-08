@@ -8,7 +8,7 @@
     xmlns:ui="using:CommunityToolkit.WinUI"
     xmlns:tk="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="Transparent">
     <Page.Resources>
         <Style x:Key="SettingExpanderStyle" TargetType="Expander">
             <Setter Property="HorizontalAlignment" Value="Stretch" />
